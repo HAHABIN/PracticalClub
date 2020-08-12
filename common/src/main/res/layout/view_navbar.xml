@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_bar_h"
+    android:background="@color/color_white_navbar">
+
+    <FrameLayout
+        android:id="@+id/back_button_id"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left">
+
+        <ImageView
+            android:id="@+id/back_button_icon_id"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:background="@mipmap/nav_fanhui"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/navbar_title_tv_id"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@color/color_black_33"
+        android:textSize="19sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/textview_right_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:layout_marginRight="15dp"
+        android:clickable="true"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@color/color_green_72b85f"
+        android:textSize="14sp" />
+    
+    <FrameLayout
+        android:id="@+id/fl_right_more"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:visibility="gone">
+        
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="@mipmap/icon_more"
+            android:layout_gravity="center"/>
+        
+    </FrameLayout>
+
+    <View
+        android:id="@+id/view_botton"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_gravity="bottom"
+        android:background="#b9b9b9"/>
+
+    <FrameLayout
+        android:id="@+id/ico_addfriend"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:onClick="onAddfriendClick"
+        android:visibility="gone">
+    </FrameLayout>
+</FrameLayout>

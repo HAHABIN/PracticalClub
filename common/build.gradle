@@ -1,0 +1,68 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+
+def cfg = rootProject.ext.android
+def librarys = rootProject.ext.dependencies
+
+android {
+    compileSdkVersion cfg.compileSdkVersion
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion cfg.minSdkVersion
+        targetSdkVersion cfg.targetSdkVersion
+        versionCode cfg.versionCode
+        versionName cfg.versionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    //noinspection GradleCompatible
+    implementation librarys['support_v7']
+    implementation librarys['swiperefreshlayout']
+
+    testImplementation librarys['junit']
+    androidTestImplementation  librarys['junitx']
+    androidTestImplementation  librarys['espresso-core']
+    implementation librarys['rxjava2']
+    //RxAndroid其实就是对RxJava的扩展
+    implementation librarys['rxandroid']
+    //Retrofit
+    implementation librarys['retrofit']
+    //RxJava和retrofit的结合使用 RxJava2CallAdapterFactory
+    implementation librarys['retrofit2_rxjava2_adapter']
+
+    //okhttp3
+    implementation librarys['okio']
+    implementation librarys['okhttp3']
+    //Gson
+    implementation  librarys['gson']
+    //解析对应的json:
+    implementation  librarys['onverter-gson']
+    //View注入框架
+    api librarys['butterknife']
+    annotationProcessor librarys.butterknife_compiler
+    //沉浸式状态栏
+    implementation librarys['systembartint']
+    //recyclerview
+    implementation librarys['recyclerview']
+    //Glide
+    implementation librarys['glide']
+    annotationProcessor librarys['glide:compiler']
+
+    implementation project(':main')
+
+}
