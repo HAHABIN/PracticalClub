@@ -63,6 +63,4 @@ dependencies {
     implementation librarys['glide']
     annotationProcessor librarys['glide:compiler']
 
-    implementation project(':main')
-
 }

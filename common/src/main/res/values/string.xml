@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="string_default_page_no_data">查询暂无数据，尝试刷新一下吧~</string>
+    <string name="string_default_page_no_network">您的网络不稳定，尝试刷新一下吧~</string>
+    <string name="string_default_page_no_search">搜索没结果啊，会不会是打错啦~</string>
+    <string name="string_refresh">刷新</string>
+</resources>

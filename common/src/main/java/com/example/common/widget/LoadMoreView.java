@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -22,7 +22,7 @@ public class LoadMoreView extends LinearLayout {
     public static final int loadFinish = 2;
 
     private TextView titleView;
-    private ImageView indicatorView;
+    private ProgressBar pbLoading;
 
     public LoadMoreView(Context context) {
         this(context, null);
@@ -38,18 +38,18 @@ public class LoadMoreView extends LinearLayout {
     }
 
     public void setStatus(int status) {
-        indicatorView.setVisibility(VISIBLE);
+        pbLoading.setVisibility(VISIBLE);
         setVisibility(VISIBLE);
         switch (status) {
             case normal:
                 setVisibility(GONE);
                 break;
             case loading:
-                titleView.setText("努力加载中...");
+                titleView.setText("正在加载中...");
                 break;
             case loadFinish:
-                indicatorView.setVisibility(GONE);
-                titleView.setText("没有更多啦...");
+                pbLoading.setVisibility(GONE);
+                titleView.setText("没有更多数据了");
                 titleView.setVisibility(VISIBLE);
                 break;
         }
@@ -61,7 +61,7 @@ public class LoadMoreView extends LinearLayout {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_footer_view, this);
 
         titleView = view.findViewById(R.id.show_text_id);
-        indicatorView = view.findViewById(R.id.iv_footer_view_progressbar);
-        indicatorView.setImageResource(R.drawable.progressbar);
+        pbLoading = view.findViewById(R.id.pb_loading);
+
     }
 }

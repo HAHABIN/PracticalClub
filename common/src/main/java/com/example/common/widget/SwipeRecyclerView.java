@@ -2,13 +2,13 @@ package com.example.common.widget;
 
 import android.app.Activity;
 import android.content.Context;
-
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 
 import com.bumptech.glide.Glide;
 import com.example.common.R;
@@ -51,6 +50,8 @@ public class SwipeRecyclerView extends FrameLayout implements SwipeRefreshLayout
 
     private boolean loadMoreing = false;
     private boolean loadMoreFinish = false;  // 数据加载完成不在加载，只有刷新之后再重置
+    private LinearLayout mLinearLayout;
+
 
     public SwipeRecyclerView(Context context) {
         this(context, null);
@@ -72,7 +73,10 @@ public class SwipeRecyclerView extends FrameLayout implements SwipeRefreshLayout
      * @param view
      */
     public void addHeaderView(View view) {
-        mHeaderViews.add(view);
+        mLinearLayout = new LinearLayout(context);
+        mLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        mLinearLayout.addView(view);
+        mHeaderViews.add(mLinearLayout);
     }
 
     private void addFootView(View view) {
@@ -100,6 +104,10 @@ public class SwipeRecyclerView extends FrameLayout implements SwipeRefreshLayout
         recyclerView.addOnScrollListener(scrollListener);
     }
 
+    public void SetLayoutManager(RecyclerView.LayoutManager layoutManager) {
+        recyclerView.setLayoutManager(layoutManager);
+    }
+
     @Override
     public void onRefresh() {
         loadMoreFinish = false;
@@ -109,7 +117,7 @@ public class SwipeRecyclerView extends FrameLayout implements SwipeRefreshLayout
         if (loadMoreView != null) loadMoreView.setStatus(LoadMoreView.normal);
     }
 
-    private void startLoadMore() {
+    public void startLoadMore() {
         loadMoreing = true;
         loadMoreView.setStatus(LoadMoreView.loading);
         mRefreshLayout.setEnabled(false);
@@ -136,6 +144,10 @@ public class SwipeRecyclerView extends FrameLayout implements SwipeRefreshLayout
         loadMoreView.setStatus(LoadMoreView.loadFinish);
     }
 
+    public void loadMoreData(){
+        loadMoreFinish = false;
+        loadMoreView.setStatus(LoadMoreView.normal);
+    }
     boolean sIsScrolling = false;
 
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
@@ -161,24 +173,25 @@ public class SwipeRecyclerView extends FrameLayout implements SwipeRefreshLayout
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-            RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-            if (layoutManager instanceof LinearLayoutManager) {
-                lastVisiablePosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
-            } else if (layoutManager instanceof GridLayoutManager) {
-                lastVisiablePosition = ((GridLayoutManager) layoutManager).findLastCompletelyVisibleItemPosition();
-            } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-                int[] into = new int[((StaggeredGridLayoutManager) layoutManager).getSpanCount()];
-                ((StaggeredGridLayoutManager) layoutManager).findLastVisibleItemPositions(into);
-                lastVisiablePosition = findMax(into);
-            }
-            int childCount = mWrapperAdapter == null ? 0 : mWrapperAdapter.getItemCount();
-            if (childCount > 1 && lastVisiablePosition == childCount - 1) {
-                if (!isRefreshing() && !loadMoreing && loadMoreView != null && !loadMoreFinish) {
-                    // 上拉到最后的cell 不在刷新和加载更多时, 才开始加载更多
-                    startLoadMore();
+                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+                if (layoutManager instanceof LinearLayoutManager) {
+                    lastVisiablePosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
+                } else if (layoutManager instanceof GridLayoutManager) {
+                    lastVisiablePosition = ((GridLayoutManager) layoutManager).findLastCompletelyVisibleItemPosition();
+                } else if (layoutManager instanceof StaggeredGridLayoutManager) {
+                    int[] into = new int[((StaggeredGridLayoutManager) layoutManager).getSpanCount()];
+                    ((StaggeredGridLayoutManager) layoutManager).findLastVisibleItemPositions(into);
+                    lastVisiablePosition = findMax(into);
+                }
+                int childCount = mWrapperAdapter == null ? 0 : mWrapperAdapter.getItemCount();
+                if (childCount > 1 && lastVisiablePosition == childCount - 1) {
+                    if (!isRefreshing() && !loadMoreing && loadMoreView != null && !loadMoreFinish) {
+                        // 上拉到最后的cell 不在刷新和加载更多时, 才开始加载更多
+                        startLoadMore();
+                    }
                 }
             }
-        }
+
     };
 
     private void initRefreshStyle() {
@@ -518,7 +531,7 @@ public class SwipeRecyclerView extends FrameLayout implements SwipeRefreshLayout
                     isEmptyViewShowing = true;
                     if (mEmptyView.getParent() == null) {
                         LayoutParams params = new LayoutParams(
-                                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                         params.gravity = Gravity.CENTER;
 
                         addView(mEmptyView, params);
@@ -538,7 +551,6 @@ public class SwipeRecyclerView extends FrameLayout implements SwipeRefreshLayout
     public interface OnLoadListener {
 
         void onRefresh();
-
         void onLoadMore();
     }
 }
