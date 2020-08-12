@@ -30,46 +30,6 @@ public class RxPresenter<T extends BaseContract.BaseView> implements BaseContrac
 
     // Presenter持有的View
     protected T mView;
-    /**
-     * 1、可以快速解除所有添加的Disposable类.
-     * 2、每当我们得到一个Disposable时就调用CompositeDisposable.add()将它添加到容器中,
-     * 在退出的时候, 调用CompositeDisposable.clear() 即可快速解除.
-     *
-     */
-    protected CompositeDisposable mDisposable;
-
-    /**
-     * 构造函数 new CompositeDisposable对象
-     */
-    protected void unSubscribe() {
-
-        if (mDisposable != null) {
-            // dispose():主动解除订阅
-            mDisposable.dispose();
-        }
-    }
-
-    protected void addDisposable(Disposable subscription) {
-
-        if (mDisposable == null) {
-            mDisposable = new CompositeDisposable();
-        }
-        //订阅
-        mDisposable.add(subscription);
-    }
-
-    protected void cancelDisposable(Disposable subscription) {
-        if (mDisposable != null) {
-            mDisposable.delete(subscription);
-        }
-    }
-
-    protected void cancelAllDisposable() {
-        if (mDisposable != null) {
-            mDisposable.clear();
-        }
-    }
-
     @Override
     public void attachView(T view) {
         this.mView = view;
@@ -78,7 +38,6 @@ public class RxPresenter<T extends BaseContract.BaseView> implements BaseContrac
     @Override
     public void detachView() {
         this.mView = null;
-        unSubscribe();
     }
 
     @Override

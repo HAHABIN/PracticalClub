@@ -15,6 +15,7 @@ import android.app.Application;
 import android.os.Bundle;
 
 import com.example.common.http.HttpClient;
+import com.example.common.utils.ToastUtils;
 import com.example.common.utils.Utils;
 
 import java.util.Collections;
@@ -38,6 +39,7 @@ public class BaseApplication extends Application {
         super.onCreate();
         HttpClient.getInstance().setContext(this);
         Utils.init(this);
+        ToastUtils.init(this);
         registerActivityListener();
 
     }
