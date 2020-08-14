@@ -5,7 +5,7 @@
     <color name="colorAccent">#D81B60</color>
 
     <!--文字颜色-->
-    <color name="textWhite">#FFFFFF</color>
+    <color name="color_ffffff">#ffffff</color>
     <color name="textWhite2">#000</color>
     <color name="textBrown">#6A4A57</color>
     <color name="color_green_72b85f">#1cbdd1</color>

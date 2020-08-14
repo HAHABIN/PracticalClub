@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.common.base.HttpItem;
 import com.example.common.utils.JsonUtil;
 import com.example.common.utils.Utils;
+import com.orhanobut.logger.Logger;
 
 
 import org.json.JSONObject;
@@ -115,7 +116,7 @@ public class HttpTask {
                 //将字符串数据返回成对象 如果mItem不为空情况  否则转为HttpItem对象
                 HttpItem httpItem = (HttpItem) JsonUtil.GsonToBean(response, mItem != null ? mItem : HttpItem.class);
                 //日志
-                Log.d(TAG, "ResponseBody："+response);
+                Logger.json(response);
                 //如果对象不为空
                 if (httpItem != null) {
                     //判断请求结果

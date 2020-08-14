@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
-
 def cfg = rootProject.ext.android
-def librarys = rootProject.ext.dependencies
+def libraries = rootProject.ext.dependencies
 
 android {
     compileSdkVersion cfg.compileSdkVersion
@@ -38,12 +37,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation librarys['appcompat']
-    implementation librarys['constraintlayout']
-    testImplementation librarys['junit']
-    androidTestImplementation  librarys['junitx']
-    androidTestImplementation  librarys['espresso-core']
-
+    implementation libraries['appcompat']
+    implementation libraries['constraintlayout']
+    testImplementation libraries['junit']
+    androidTestImplementation  libraries['junitx']
+    androidTestImplementation  libraries['espresso-core']
     implementation project(':main')
     implementation project(':common')
 }

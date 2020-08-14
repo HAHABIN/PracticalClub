@@ -1,5 +1,6 @@
-package com.example.common.base;
+package com.example.common.base.mvp;
 
+import com.example.common.base.HttpItem;
 import com.example.common.http.ApiError;
 import com.example.common.http.HttpHelper;
 

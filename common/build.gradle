@@ -1,8 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
 
+
 def cfg = rootProject.ext.android
-def librarys = rootProject.ext.dependencies
+def libraries = rootProject.ext.dependencies
 
 android {
     compileSdkVersion cfg.compileSdkVersion
@@ -24,43 +25,49 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
 }
 
 dependencies {
+
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleCompatible
-    implementation librarys['support_v7']
-    implementation librarys['swiperefreshlayout']
+    implementation libraries['support_v7']
+    implementation libraries['swiperefreshlayout']
 
-    testImplementation librarys['junit']
-    androidTestImplementation  librarys['junitx']
-    androidTestImplementation  librarys['espresso-core']
-    implementation librarys['rxjava2']
+    testImplementation libraries['junit']
+    androidTestImplementation  libraries['junitx']
+    androidTestImplementation  libraries['espresso-core']
+    implementation libraries['rxjava2']
     //RxAndroid其实就是对RxJava的扩展
-    implementation librarys['rxandroid']
+    implementation libraries['rxandroid']
     //Retrofit
-    implementation librarys['retrofit']
+    implementation libraries['retrofit']
     //RxJava和retrofit的结合使用 RxJava2CallAdapterFactory
-    implementation librarys['retrofit2_rxjava2_adapter']
+    implementation libraries['retrofit2_rxjava2_adapter']
 
     //okhttp3
-    implementation librarys['okio']
-    implementation librarys['okhttp3']
+    implementation libraries['okio']
+    implementation libraries['okhttp3']
     //Gson
-    implementation  librarys['gson']
+    implementation  libraries['gson']
     //解析对应的json:
-    implementation  librarys['onverter-gson']
-    //View注入框架
-    api librarys['butterknife']
-    annotationProcessor librarys.butterknife_compiler
+    implementation  libraries['onverter-gson']
+    //View注入框架 在模块中需使用R2调用资源文件 并且监听不能使用switch-case  用else if替代
+    api libraries["butterknife"]
+    annotationProcessor libraries.butterknife_compiler
     //沉浸式状态栏
-    implementation librarys['systembartint']
+    implementation libraries['systembartint']
     //recyclerview
-    implementation librarys['recyclerview']
+    implementation libraries['recyclerview']
     //Glide
-    implementation librarys['glide']
-    annotationProcessor librarys['glide:compiler']
-
+    implementation libraries['glide']
+    annotationProcessor libraries['glide:compiler']
+    api libraries["logger"]
+    api libraries["picture_library"]
 }

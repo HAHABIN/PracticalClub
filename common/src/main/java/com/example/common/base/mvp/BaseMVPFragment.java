@@ -1,7 +1,10 @@
-package com.example.common.base;
+package com.example.common.base.mvp;
+
+import com.example.common.base.BaseFragment;
+import com.example.common.base.mvp.BaseContract;
 
 /**
- *MVPFragment基类
+ * MVPFragment基类
  * @param <T extends BaseContract.BasePresenter>
  * 只允许BasePresenter及子类的引用
  *

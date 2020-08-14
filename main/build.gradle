@@ -1,8 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
-
 def cfg = rootProject.ext.android
-def librarys = rootProject.ext.dependencies
+def libraries = rootProject.ext.dependencies
 
 android {
     compileSdkVersion cfg.compileSdkVersion
@@ -30,19 +29,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation librarys['appcompat']
-    implementation librarys['constraintlayout']
-    testImplementation librarys['junit']
-    androidTestImplementation  librarys['junitx']
-    androidTestImplementation  librarys['espresso-core']
-
-    annotationProcessor librarys.butterknife_compiler
-
+    implementation libraries['appcompat']
+    implementation libraries['constraintlayout']
+    testImplementation libraries['junit']
+    androidTestImplementation  libraries['junitx']
+    androidTestImplementation  libraries['espresso-core']
+    annotationProcessor libraries.butterknife_compiler
 
     implementation project(':common')
 }

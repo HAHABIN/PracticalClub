@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.example.common.widget.web.BaseWebView
+        android:id="@+id/bwv_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.example.common.widget.web.BaseWebView>
+
+    <com.example.common.widget.view.ColorProgressBar
+        android:id="@+id/pb_web"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+</RelativeLayout>

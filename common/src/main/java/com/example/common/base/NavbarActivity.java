@@ -6,36 +6,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.common.R;
-import com.example.common.base.BaseContract.BasePresenter;
 import com.example.common.utils.Utils;
 
 /**
- *  返回MVPActivity基类
- * @param <T extends BaseContract.BasePresenter>
- * 只允许BasePresenter及子类的引用
- *
+ * 有返回按钮
  */
-public abstract class NavbarActivity<T extends BasePresenter> extends BaseActivity {
+public abstract class NavbarActivity extends BaseActivity {
 
     protected View navbar_v;
-
-    protected T mPresenter;
-
-    protected abstract T bindPresenter();
-
-    @Override
-    protected void processLogic() {
-        mPresenter = bindPresenter();
-        mPresenter.attachView(this);
-    }
-    
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPresenter.detachView();
-    }
-
 
     @Override
     protected void addNavBar() {

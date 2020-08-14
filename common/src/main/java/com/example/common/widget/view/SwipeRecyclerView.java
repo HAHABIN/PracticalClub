@@ -1,4 +1,4 @@
-package com.example.common.widget;
+package com.example.common.widget.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -302,6 +302,7 @@ public class SwipeRecyclerView extends FrameLayout implements SwipeRefreshLayout
         mRefreshLayout.setRefreshing(refreshing);
         if (refreshing && !isLoadingMore && mListener != null) {
             mListener.onRefresh();
+            if (loadMoreView!=null) loadMoreView.setStatus(LoadMoreView.normal);
         }
     }
 
@@ -528,20 +529,37 @@ public class SwipeRecyclerView extends FrameLayout implements SwipeRefreshLayout
                     count++;
                 }
                 if (adapter.getItemCount() == count) {
-                    isEmptyViewShowing = true;
-                    if (mEmptyView.getParent() == null) {
-                        LayoutParams params = new LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                        params.gravity = Gravity.CENTER;
+                    if (mLinearLayout != null) {
+                        if (mEmptyView.getParent() != null) {
+                            ((ViewGroup)mEmptyView.getParent()).removeView(mEmptyView);
+                        }
+                        mLinearLayout.addView(mEmptyView,1);
+                        if (mFootViews.size() != 0) {
+                            mFootViews.get(0).setVisibility(GONE);
+                        }
+                    } else {
+                        isEmptyViewShowing = true;
+                        if (mEmptyView.getParent() == null) {
+                            LayoutParams params = new LayoutParams(
+                                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            params.gravity = Gravity.CENTER;
 
-                        addView(mEmptyView, params);
+                            addView(mEmptyView, params);
+                        }
+                        recyclerView.setVisibility(GONE);
+                        mEmptyView.setVisibility(VISIBLE);
                     }
-                    recyclerView.setVisibility(GONE);
-                    mEmptyView.setVisibility(VISIBLE);
                 } else {
                     isEmptyViewShowing = false;
                     mEmptyView.setVisibility(GONE);
                     recyclerView.setVisibility(VISIBLE);
+
+                    if (mLinearLayout != null) {
+                        mLinearLayout.removeView(mEmptyView);
+                        if (mFootViews.size() != 0) {
+                            mFootViews.get(0).setVisibility(VISIBLE);
+                        }
+                    }
                 }
             }
         }

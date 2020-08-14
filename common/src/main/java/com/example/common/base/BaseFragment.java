@@ -1,7 +1,6 @@
 package com.example.common.base;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,12 +11,13 @@ import android.view.ViewGroup;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * 继承BaseActivity基类
+ * 继承BaseFragment基类
  */
 public abstract class BaseFragment extends Fragment {
 
@@ -30,11 +30,7 @@ public abstract class BaseFragment extends Fragment {
     @LayoutRes
     protected abstract int getLayoutId();
 
-
-    /**
-     * 逻辑使用区
-     */
-    protected void processLogic(){
+    protected void processLogic() {
     }
 
     protected abstract void initView(View view);
@@ -42,8 +38,6 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void initListener();
 
     protected abstract void initData();
-
-
 
 
     /******************************lifecycle area*****************************************/
@@ -57,37 +51,34 @@ public abstract class BaseFragment extends Fragment {
                 parent.removeView(mRoot);
             }
         }
-        mRoot = inflater.from(getActivity()).inflate(getLayoutId(),container,false);
+        mRoot = inflater.from(getActivity()).inflate(getLayoutId(), container, false);
         mUnBinder = ButterKnife.bind(this, mRoot);
-        TAG=getName();
+        TAG = getName();
         //绑定Presenter
         processLogic();
-        initData();
         initView(mRoot);
+        initData();
         initListener();
         return mRoot;
     }
 
 
-
     protected void startActivity(Class clz, Bundle bundle) {
-
-            Intent intent = new Intent();
-            intent.setClass(mActivity, clz);
-            if (bundle!=null) {
-                intent.putExtras(bundle);
-            }
-            startActivity(intent);
-
+        Intent intent = new Intent();
+        intent.setClass(mActivity, clz);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
     }
 
     protected void startActivity(Class clz, Bundle bundle, int requestCode) {
-            Intent intent = new Intent();
-            intent.setClass(mActivity, clz);
-            if (bundle!=null) {
-                intent.putExtras(bundle);
-            }
-            startActivityForResult(intent, requestCode);
+        Intent intent = new Intent();
+        intent.setClass(mActivity, clz);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivityForResult(intent, requestCode);
     }
 
     @Override
@@ -97,13 +88,13 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**************************公共类*******************************************/
-    public String getName(){
+    public String getName() {
         return getClass().getName();
     }
 
-    protected <VT> VT getViewById(int id){
-        if (mRoot == null){
-            return  null;
+    protected <VT> VT getViewById(int id) {
+        if (mRoot == null) {
+            return null;
         }
         return (VT) mRoot.findViewById(id);
     }

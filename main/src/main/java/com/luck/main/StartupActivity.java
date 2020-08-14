@@ -1,14 +1,41 @@
 package com.luck.main;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
-public class StartupActivity extends AppCompatActivity {
+import com.example.common.base.BaseActivity;
+import com.example.common.base.WebActivity;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class StartupActivity extends BaseActivity {
+
+
+    @BindView(R2.id.advert_photo_id)
+    ImageView advertPhotoId;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_startup);
+    protected int getLayoutId() {
+        return R.layout.activity_startup;
     }
+
+    @Override
+    protected void initView() {
+        advertPhotoId.setImageResource(R.drawable.ic_back);
+        startActivity(WebActivity.class, null);
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+
 }

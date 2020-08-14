@@ -68,9 +68,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Utils.adaptScreen(this);
         mContext = this;
+        initMainLayout();
         //View注入
         mUnBinder = ButterKnife.bind(this);
-        initMainLayout();
+
 
         processLogic();
         initParam();

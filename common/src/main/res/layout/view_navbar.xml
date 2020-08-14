@@ -7,14 +7,14 @@
 
     <FrameLayout
         android:id="@+id/back_button_id"
-        android:layout_width="50dp"
+        android:layout_width="@dimen/dimen_50dp"
         android:layout_height="match_parent"
         android:layout_gravity="left">
 
         <ImageView
             android:id="@+id/back_button_icon_id"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
             android:layout_gravity="center"
             android:background="@mipmap/nav_fanhui"/>
     </FrameLayout>

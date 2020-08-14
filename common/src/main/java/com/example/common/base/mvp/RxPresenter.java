@@ -1,16 +1,15 @@
-package com.example.common.base;
+package com.example.common.base.mvp;
 
 
 
+import com.example.common.base.HttpItem;
+import com.example.common.base.mvp.BaseContract;
 import com.example.common.http.ApiError;
 import com.example.common.http.HttpHelper;
 import com.example.common.http.TaskListener;
 import com.example.common.utils.ToastUtils;
 
 import org.json.JSONObject;
-
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 
 
 /**
@@ -30,6 +29,7 @@ public class RxPresenter<T extends BaseContract.BaseView> implements BaseContrac
 
     // Presenter持有的View
     protected T mView;
+
     @Override
     public void attachView(T view) {
         this.mView = view;

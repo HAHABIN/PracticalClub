@@ -1,4 +1,4 @@
-package com.example.common.widget;
+package com.example.common.widget.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
