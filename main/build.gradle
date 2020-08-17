@@ -46,4 +46,10 @@ dependencies {
     annotationProcessor libraries.butterknife_compiler
 
     implementation project(':common')
+    implementation "io.noties.markwon:core:4.5.1"
+    implementation "io.noties.markwon:image:4.5.1"
+    implementation "io.noties.markwon:image-glide:4.5.1"
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.20'
+
+
 }

@@ -1,7 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
-
-
 def cfg = rootProject.ext.android
 def libraries = rootProject.ext.dependencies
 

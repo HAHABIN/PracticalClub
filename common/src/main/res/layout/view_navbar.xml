@@ -16,7 +16,7 @@
             android:layout_width="@dimen/dimen_20dp"
             android:layout_height="@dimen/dimen_20dp"
             android:layout_gravity="center"
-            android:background="@mipmap/nav_fanhui"/>
+            android:background="@mipmap/nav_back"/>
     </FrameLayout>
 
     <TextView

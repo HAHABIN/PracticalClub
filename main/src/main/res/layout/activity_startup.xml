@@ -7,11 +7,19 @@
     android:orientation="vertical"
     tools:context=".StartupActivity">
 
-    <ImageView
-        android:id="@+id/advert_photo_id"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
-
+        android:layout_height="wrap_content"
+        android:text="标题"
+        android:gravity="center"/>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tv_content"
+            />
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

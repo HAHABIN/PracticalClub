@@ -1,6 +1,7 @@
 package com.example.common.http;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,15 +50,15 @@ public class HttpClient {
         if (listener != null) listener.taskStarted(type);
 
         HttpTask task = new HttpTask(mContext, apiServer, listener).load(type, params);
-//        mTaskArray.add(task);
-//        Log.d("TaskArray", "startTask: "+mTaskArray.size());
+        mTaskArray.add(task);
+        Log.d("TaskArray", "startTask: "+mTaskArray.size());
     }
 
     public void startTask(HttpHelper.TaskType type, TaskListener listener, HashMap<String, Object> params, Class item) {
         if (listener != null) listener.taskStarted(type);
         HttpTask task = new HttpTask(mContext, apiServer, listener, item).load(type, params);
-//        mTaskArray.add(task);
-//        Log.d("TaskArray", "startTask: "+mTaskArray.size());
+        mTaskArray.add(task);
+        Log.d("TaskArray", "startTask: "+mTaskArray.size());
     }
 
     //无参的构造方法
