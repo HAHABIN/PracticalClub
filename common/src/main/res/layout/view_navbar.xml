@@ -3,10 +3,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_bar_h"
-    android:background="@color/color_white_navbar">
+    android:background="@color/colorPrimaryDark">
 
     <FrameLayout
-        android:id="@+id/back_button_id"
+        android:id="@+id/fl_back"
         android:layout_width="@dimen/dimen_50dp"
         android:layout_height="match_parent"
         android:layout_gravity="left">
@@ -16,11 +16,11 @@
             android:layout_width="@dimen/dimen_20dp"
             android:layout_height="@dimen/dimen_20dp"
             android:layout_gravity="center"
-            android:background="@mipmap/nav_back"/>
+            android:background="@drawable/ic_back"/>
     </FrameLayout>
 
     <TextView
-        android:id="@+id/navbar_title_tv_id"
+        android:id="@+id/tv_nav_title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -29,7 +29,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:singleLine="true"
-        android:textColor="@color/color_black_33"
+        android:textColor="@color/white"
         android:textSize="19sp"
         android:textStyle="bold"/>
 
@@ -57,7 +57,7 @@
             android:id="@+id/iv_right"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:background="@mipmap/icon_more"
+            android:background="@drawable/ic_more"
             android:layout_gravity="center"/>
         
     </FrameLayout>
@@ -67,7 +67,9 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_gravity="bottom"
-        android:background="#b9b9b9"/>
+        android:background="#b9b9b9"
+        android:visibility="gone"
+        />
 
     <FrameLayout
         android:id="@+id/ico_addfriend"

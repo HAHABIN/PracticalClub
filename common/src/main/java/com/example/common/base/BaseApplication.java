@@ -13,10 +13,12 @@ package com.example.common.base;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.common.http.HttpClient;
 import com.example.common.utils.ToastUtils;
 import com.example.common.utils.Utils;
+import com.tencent.smtt.sdk.QbSdk;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -41,7 +43,18 @@ public class BaseApplication extends Application {
         Utils.init(this);
         ToastUtils.init(this);
         registerActivityListener();
+        QbSdk.initX5Environment(this, new QbSdk.PreInitCallback() {
+            @Override
+            public void onCoreInitFinished() {
 
+            }
+
+            @Override
+            public void onViewInitFinished(boolean b) {
+                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
+                Log.e("wy","加载内核是否成功:"+b);
+            }
+        });
     }
     public void exit() {
         finishActivityList();

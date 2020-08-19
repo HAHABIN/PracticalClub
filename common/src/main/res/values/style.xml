@@ -37,5 +37,8 @@
         <attr name="right_bottom_radius" format="dimension"/>
         <attr name="left_bottom_radius" format="dimension"/>
     </declare-styleable>
-
+    <style name="ToolBarTextAppearance">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
 </resources>

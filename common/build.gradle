@@ -15,6 +15,12 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        // Specifies the ABI configurations of your native
+        // libraries Gradle should build and package with your APK.
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+        }
     }
 
     buildTypes {
@@ -28,6 +34,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    buildFeatures {
+        dataBinding = true
+    }
+
+
 }
 
 dependencies {
@@ -37,6 +48,7 @@ dependencies {
     //noinspection GradleCompatible
     implementation libraries['support_v7']
     implementation libraries['swiperefreshlayout']
+    implementation files('libs/tbs_sdk_thirdapp_v4.3.0.39_43939_sharewithdownloadwithfile_withoutGame_obfs_20200713_223411.jar')
 
     testImplementation libraries['junit']
     androidTestImplementation  libraries['junitx']
@@ -66,6 +78,8 @@ dependencies {
     //Glide
     implementation libraries['glide']
     annotationProcessor libraries['glide:compiler']
+
     api libraries["logger"]
     api libraries["picture_library"]
+
 }

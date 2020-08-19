@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.example.common.R;
@@ -97,11 +98,14 @@ public class Utils {
         appDm.scaledDensity = activityDm.scaledDensity;
         appDm.densityDpi = activityDm.densityDpi;
     }
-    public static int dipPx(Context context, float dpValue) {
+    public static int dipPx( float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
-
+    public static int px2dip( float pxValue){
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int)(pxValue / scale + 0.5f);
+    }
 
     /**
      * 拨打电话
@@ -146,5 +150,13 @@ public class Utils {
         }
         return uri;
     }
+
+    /**
+     * 获取颜色资源
+     */
+    public static int getColor(int id) {
+        return ContextCompat.getColor(getContext(), id);
+    }
+
 }
 

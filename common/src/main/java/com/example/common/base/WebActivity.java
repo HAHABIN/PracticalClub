@@ -1,237 +1,176 @@
+
 package com.example.common.base;
 
-import android.annotation.SuppressLint;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.webkit.GeolocationPermissions;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
+import android.widget.FrameLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.example.common.R;
-import com.example.common.R2;
-import com.example.common.utils.PictureSelectorUtils;
-import com.example.common.utils.Utils;
-import com.example.common.widget.view.ColorProgressBar;
-import com.example.common.widget.web.BaseWebView;
-import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.entity.LocalMedia;
-
-import java.util.List;
-
-import butterknife.BindView;
-
-@SuppressLint({"SetJavaScriptEnabled", "DefaultLocale", "InflateParams"})
-public class WebActivity extends NavbarActivity {
-
-    public static String kUrl = "kUrl";
-    public static String kTitle = "kTitle";
+import com.example.common.databinding.ActivityWebBinding;
+import com.example.common.popupwindow.MenuPopWindow;
+import com.example.common.utils.ToastUtils;
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 
 
+/**
+ * 文 件 名: WebActivity
+ * 创 建 人: 易冬
+ * 创建日期: 2017/4/21 09:24
+ * 邮   箱: onlyloveyd@gmail.com
+ * 博   客: https://onlyloveyd.cn
+ * 描   述：内部网页显示Activity
+ */
+public class WebActivity extends AppCompatActivity implements View.OnClickListener{
 
-    public static void startActivity(Context context, String title, String url) {
+    public static String URL = "URL";
+    private TextView mTvNavTitle;
+    private FrameLayout mFlBack;
+    private FrameLayout mFlRightMore;
+
+    public static void startActivity(Context context, String url) {
         Intent intent = new Intent(context, WebActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(kUrl, url);
-        bundle.putString(kTitle, title);
+        bundle.putString(URL, url);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }
 
 
+    private String mUrl = null;
 
+    private ActivityWebBinding mBinding;
 
-    private String url;
-    private String title;
-
-    ValueCallback<Uri[]> mUploadMessageList;
-
-    private WebChromeClient mWebChromeClient = new WebChromeClient() {
-
-        @Override
-        public void onProgressChanged(WebView view, int progress) {
-            mPbWeb.setProgress(progress);
-        }
-
-        @Override
-        public void onShowCustomView(View view, CustomViewCallback callback) {
-            // TODO Auto-generated method stub
-            super.onShowCustomView(view, callback);
-        }
-
-        @Override
-        public void onGeolocationPermissionsShowPrompt(String origin,
-                                                       GeolocationPermissions.Callback callback) {
-            // TODO Auto-generated method stub
-            super.onGeolocationPermissionsShowPrompt(origin, callback);
-            callback.invoke(origin, true, false);
-        }
-
-        /**
-         * 5.0+
-         */
-        @Override
-        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
-            // make sure there is no existing message
-            cancelCallBack();
-            mUploadMessageList = filePathCallback;
-            PictureSelectorUtils.create(WebActivity.this).openDialogInActivity(1, null, true, false);
-            return true;
-        }
-    };
-
-    protected BaseWebView webView;
-    ColorProgressBar mPbWeb;
     @Override
-    protected int getLayoutId() {
-        return R.layout.activity_web;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_web);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            mUrl = bundle.getString("URL");
+        }
+
+        init();
+        initWebViewSettings();
+
+        mBinding.wvContent.removeJavascriptInterface("searchBoxJavaBridge_");
+        mBinding.wvContent.removeJavascriptInterface("accessibilityTraversal");
+        mBinding.wvContent.removeJavascriptInterface("accessibility");
+        mBinding.wvContent.loadUrl(mUrl);
+    }
+
+    private void init() {
+        mFlBack = mBinding.includeToolbar.findViewById(R.id.fl_back);
+        mTvNavTitle = mBinding.includeToolbar.findViewById(R.id.tv_nav_title);
+        mFlRightMore = mBinding.includeToolbar.findViewById(R.id.fl_right_more);
+        mFlRightMore.setVisibility(View.VISIBLE);
+        mFlRightMore.setOnClickListener(this);
+        mFlBack.setOnClickListener(this);
     }
 
     @Override
-    protected void initParam() {
-        super.initParam();
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            this.url = extras.getString(kUrl);
-            this.title = extras.getString(kTitle);
-        }
-        //TODO : 测试数据
-        this.url = "https://gank.io/api/v2/post/5e777432b8ea09cade05263f";
-        this.title = "干货 机";
+    public void onPause() {
+        super.onPause();
+        mBinding.wvContent.onPause();
     }
 
     @Override
-    protected void initView() {
-        webView = findViewById(R.id.bwv_id);
-        mPbWeb = findViewById(R.id.pb_web);
-        webView.setWebChromeClient(mWebChromeClient);
-        webView.setTitle((TextView) navbar_v.findViewById(R.id.navbar_title_tv_id));
-        try {
-            if (Utils.getAndroidSDKVersion() >= 11) {
-                webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void onResume() {
+        super.onResume();
+        mBinding.wvContent.onResume();
     }
 
     @Override
-    protected void initListener() {
-        getRightBg().setOnClickListener(new View.OnClickListener() {
+    public void onDestroy() {
+        super.onDestroy();
+        mBinding.wvContent.destroy();
+    }
+
+
+    private void initWebViewSettings() {
+        WebSettings settings = mBinding.wvContent.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setLoadWithOverviewMode(true);
+        settings.setAppCacheEnabled(true);
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        settings.setSupportZoom(true);
+        settings.setSavePassword(false);
+        mBinding.wvContent.setWebChromeClient(new WebChromeClient() {
             @Override
-            public void onClick(View v) {
-                finish();
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                mBinding.progressbar.setProgress(newProgress);
+                if (newProgress == 100) {
+                    mBinding.progressbar.setVisibility(View.GONE);
+                } else {
+                    mBinding.progressbar.setVisibility(View.VISIBLE);
+                }
+            }
+
+
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+                mTvNavTitle.setText(title);
+            }
+        });
+        mBinding.wvContent.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url != null) view.loadUrl(url);
+                return true;
             }
         });
     }
 
     @Override
-    protected void initData() {
-        titleText(title);
-        setRightBg(R.mipmap.icon_close);
-        if (TextUtils.isEmpty(url)) {
-
-        } else {
-            webView.loadUrl(url);
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        // TODO Auto-generated method stub
-        super.onPause();
-        if (webView != null) {
-            webView.onPause();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        // TODO Auto-generated method stub
-        super.onResume();
-        if (webView != null) {
-            webView.onResume();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        // TODO Auto-generated method stub
-        if (webView != null) {
-            webView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
-            webView.clearHistory();
-            webView.clearCache(true);
-            webView.clearFormData();
-            if (mainLayout != null) {
-                mainLayout.removeView(webView);
-            }
-            webView.destroy();
-            webView = null;
-        }
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case PictureConfig.CHOOSE_REQUEST:
-                if (mUploadMessageList == null) {
-                    return;
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.fl_back) {
+            finish();
+        } else if (id == R.id.fl_right_more) {
+            MenuPopWindow popupWindow = new MenuPopWindow(WebActivity.this, new MenuPopWindow.MenuPopClick() {
+                @Override
+                public void WebRefresh() {
+                    mBinding.wvContent.reload();
                 }
-                if (resultCode != RESULT_OK) {
-                    mUploadMessageList.onReceiveValue(null);
-                    mUploadMessageList = null;
-                } else {
-                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                    if (selectList.size() > 0) {
-                        LocalMedia localMedia = selectList.get(0);
-                        String mCompressPath = localMedia.getCompressPath();
-                        Uri[] ul = new Uri[1];
-                        ul[0] = Utils.getMediaUriFromPath(this, mCompressPath);
-                        if (ul[0] != null) {
-                            mUploadMessageList.onReceiveValue(ul);
-                            mUploadMessageList = null;
-                        } else {
-                            // TODO: handle exception
-                            mUploadMessageList.onReceiveValue(null);
-                            mUploadMessageList = null;
-                        }
 
+                @Override
+                public void OpenBrowser() {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(mUrl));
+                    startActivity(intent);
+                }
+
+                @Override
+                public void CopyLink() {
+                    ClipboardManager clipboardManager = (ClipboardManager) getSystemService(
+                            CLIPBOARD_SERVICE);
+                    if (clipboardManager != null) {
+                        clipboardManager.setText(mUrl);
                     }
+                    ToastUtils.show_s("已复制到剪切板");
                 }
-
-                break;
-        }
-
-    }
-
-    /**
-     *  * 防止点击dialog的取消按钮之后，就不再次响应点击事件了
-     *  
-     */
-    public void cancelCallBack() {
-        if (mUploadMessageList != null) {
-            mUploadMessageList.onReceiveValue(null);
-            mUploadMessageList = null;
+            });
+            popupWindow.showPopupWindow(mFlRightMore);
         }
     }
-
 }

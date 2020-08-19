@@ -1,31 +1,33 @@
 package com.luck.main;
 
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.Spanned;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.target.Target;
-import com.luck.main.R2;
+import com.example.common.base.WebActivity;
+import com.example.common.utils.Utils;
 import com.example.common.base.BaseActivity;
 
 import org.commonmark.node.Node;
 
 import butterknife.BindView;
 import io.noties.markwon.AbstractMarkwonPlugin;
-import io.noties.markwon.LinkResolverDef;
+import io.noties.markwon.LinkResolver;
 import io.noties.markwon.Markwon;
 import io.noties.markwon.MarkwonConfiguration;
-import io.noties.markwon.MarkwonPlugin;
+import io.noties.markwon.core.MarkwonTheme;
 import io.noties.markwon.image.AsyncDrawable;
 import io.noties.markwon.image.ImagesPlugin;
 import io.noties.markwon.image.gif.GifMediaDecoder;
 import io.noties.markwon.image.glide.GlideImagesPlugin;
-import io.noties.markwon.syntax.SyntaxHighlight;
 import io.noties.markwon.syntax.SyntaxHighlightNoOp;
 
 
@@ -34,6 +36,8 @@ public class StartupActivity extends BaseActivity {
 
     @BindView(R2.id.tv_content)
     TextView mTvContent;
+    @BindView(R2.id.bt_t)
+    Button bt;
 
     @Override
     protected int getLayoutId() {
@@ -42,7 +46,12 @@ public class StartupActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebActivity.startActivity(mContext, "https://gank.io/post/5e888b6f3f6af49cb7780b22");
+            }
+        });
         String contents = "使用 `ViewPager2` 实现无限轮播效果，可以用来实现 banner 以及上下滚动文字广告等。\n" +
                 "\n" +
                 "## Screenshots\n" +
@@ -179,14 +188,57 @@ public class StartupActivity extends BaseActivity {
                     @Override
                     public void configureImages(@NonNull ImagesPlugin plugin) {
                         // autoplayGif controls if GIF should be automatically started
-                        plugin.addMediaDecoder(GifMediaDecoder.create(/*autoplayGif*/false));
+                        plugin.addMediaDecoder(GifMediaDecoder.create(/*autoplayGif*/true));
+                    }
+                }))
+                // automatically create Glide instance
+                .usePlugin(GlideImagesPlugin.create(mContext))
+                // use supplied Glide instance
+                .usePlugin(GlideImagesPlugin.create(Glide.with(mContext)))
+                // if you need more control
+                .usePlugin(GlideImagesPlugin.create(new GlideImagesPlugin.GlideStore() {
+                    @NonNull
+                    @Override
+                    public RequestBuilder<Drawable> load(@NonNull AsyncDrawable drawable) {
+                        return Glide.with(mContext).load(drawable.getDestination());
+                    }
+
+                    @Override
+                    public void cancel(@NonNull Target<?> target) {
+                        Glide.with(mContext).clear(target);
                     }
                 }))
                 .usePlugin(new AbstractMarkwonPlugin() {
+
+                    @Override
+                    public void configureTheme(@NonNull MarkwonTheme.Builder builder) {
+                        builder
+                                .headingBreakHeight(1)
+                                .headingTypeface(Typeface.DEFAULT_BOLD)
+                                .codeTypeface(Typeface.MONOSPACE)
+                                .codeTextColor(Utils.getColor(R.color.color_e83e8c))
+                                .codeBackgroundColor(Utils.getColor(R.color.color_1d1f20))
+                                .codeBlockTypeface(Typeface.MONOSPACE)
+                                .codeBlockBackgroundColor(Utils.getColor(R.color.color_2d2d2d))
+                                .codeBlockTextColor(Utils.getColor(R.color.color_cccccc))
+
+                        ;
+
+
+                    }
+                })
+                .usePlugin(new AbstractMarkwonPlugin() {
                     @Override
                     public void configureConfiguration(@NonNull MarkwonConfiguration.Builder builder) {
-                        builder.linkResolver(new LinkResolverDef())
-                                .syntaxHighlight(new SyntaxHighlightNoOp());
+                        builder.linkResolver(new LinkResolver() {
+                            @Override
+                            public void resolve(@NonNull View view, @NonNull String link) {
+                                WebActivity.startActivity(mContext,link);
+                            }
+                        })
+                                .syntaxHighlight(new SyntaxHighlightNoOp())
+
+                        ;
                     }
                 })
                 .build();

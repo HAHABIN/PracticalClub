@@ -33,6 +33,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -50,6 +54,5 @@ dependencies {
     implementation "io.noties.markwon:image:4.5.1"
     implementation "io.noties.markwon:image-glide:4.5.1"
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.20'
-
 
 }

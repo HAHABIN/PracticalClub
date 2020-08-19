@@ -18,8 +18,8 @@ public abstract class NavbarActivity extends BaseActivity {
     @Override
     protected void addNavBar() {
         navbar_v = ViewGroup.inflate(mContext, R.layout.view_navbar,null);
-        mainLayout.addView(navbar_v, new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Utils.dipPx(mContext,48)));
-        navbar_v.findViewById(R.id.back_button_id).setOnClickListener(new View.OnClickListener() {
+        mainLayout.addView(navbar_v, new ViewGroup.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Utils.dipPx(48)));
+        navbar_v.findViewById(R.id.fl_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -28,15 +28,15 @@ public abstract class NavbarActivity extends BaseActivity {
     }
 
     protected void hideBackButton() {
-        navbar_v.findViewById(R.id.back_button_id).setVisibility(View.GONE);
+        navbar_v.findViewById(R.id.fl_back).setVisibility(View.GONE);
     }
 
     protected void titleText(String text) {
-        ((TextView) navbar_v.findViewById(R.id.navbar_title_tv_id)).setText(text);
+        ((TextView) navbar_v.findViewById(R.id.tv_title)).setText(text);
     }
 
     protected TextView getTitleView() {
-        return  ((TextView) navbar_v.findViewById(R.id.navbar_title_tv_id));
+        return  ((TextView) navbar_v.findViewById(R.id.tv_title ));
     }
 
     protected void titleText(int resId) {
@@ -71,6 +71,6 @@ public abstract class NavbarActivity extends BaseActivity {
     protected void setNavBg(int bgColor,int textColor){
         navbar_v.setBackgroundResource(bgColor);
         navbar_v.findViewById(R.id.view_botton).setVisibility(View.GONE);
-        ((TextView) navbar_v.findViewById(R.id.navbar_title_tv_id)).setTextColor(textColor);
+        ((TextView) navbar_v.findViewById(R.id.tv_title)).setTextColor(textColor);
     }
 }
