@@ -7,6 +7,6 @@
         </shape>
     </item>
     <item>
-        <bitmap android:src="@mipmap/app_bg"/>
+        <bitmap android:src="@mipmap/bg_app"/>
     </item>
 </layer-list>

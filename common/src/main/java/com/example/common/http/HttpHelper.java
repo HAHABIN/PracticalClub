@@ -1,17 +1,23 @@
 package com.example.common.http;
 
+import java.util.HashMap;
+
 public class HttpHelper {
 
     public enum TaskType {
 
-        Login, //登陆
+        Girl, //女孩
+        GanHuo,//干货
+        Article, //文章
+        
     }
 
-    public static String getMethod(TaskType type) {
+
+    public static String getMethod(TaskType type, HashMap<String, Object> params) {
         String method = "";
         switch (type) {
 
-            case Login:
+            case Girl:
                 method = "loadadmin/logincheck";
                 break;
         }

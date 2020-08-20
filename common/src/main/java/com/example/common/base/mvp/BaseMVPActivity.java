@@ -1,6 +1,5 @@
 package com.example.common.base.mvp;
 
-import com.example.common.base.BaseActivity;
 import com.example.common.base.NavbarActivity;
 
 /**

@@ -9,7 +9,7 @@ package com.example.common.http;
 public class Constants {
 
     //服务器
-    public static final String BASE_URL = "http://101.37.75.132:9090/LostFoundSsm/";
+    public static final String BASE_URL = "https://gank.io/api/v2/";
 
     //返回结果
     public static final int NICKNAME_REQUEST = 1000;

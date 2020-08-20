@@ -1,9 +1,9 @@
 ext {
     android = [applicationId :"com.luck.practical",
                buildToolsVersion: "",
-               compileSdkVersion: 28,
-               minSdkVersion:24,
-               targetSdkVersion:28,
+               compileSdkVersion: 29,
+               minSdkVersion:21,
+               targetSdkVersion:29,
                versionCode: 1,
                versionName:"1.0"]
 
@@ -44,7 +44,11 @@ ext {
             "glide:compiler"                : "com.github.bumptech.glide:compiler:4.7.1",
             /*PictureSelector*/
             "picture_library"               : "com.github.LuckSiege.PictureSelector:picture_library:v2.2.3",
-            "tencent_tbs"                   : "com.tencent.tbs.tbssdk:sdk:43903"
+            "tencent_tbs"                   : "com.tencent.tbs.tbssdk:sdk:43903",
+            "markwon:core"                  : "io.noties.markwon:core:4.5.1",
+            "markwon:image"                 : "io.noties.markwon:image:4.5.1",
+            "markwon:image-glide"                   : "io.noties.markwon:image-glide:4.5.1",
+            "android-gif-drawable"          : "pl.droidsonroids.gif:android-gif-drawable:1.2.20",
 
 
     ]

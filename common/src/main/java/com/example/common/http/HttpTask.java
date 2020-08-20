@@ -1,9 +1,7 @@
 package com.example.common.http;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.example.common.base.HttpItem;
 import com.example.common.utils.JsonUtil;
 import com.example.common.utils.Utils;
 import com.orhanobut.logger.Logger;
@@ -84,9 +82,10 @@ public class HttpTask {
 
         try {
             //通过请求网络接口类型返回访问接口
-            String path = HttpHelper.getMethod(type);
+            String path = HttpHelper.getMethod(type,params);
+
             //设置请求参数和接口
-            callBack = mApiServer.postJSON(path, params);
+            callBack = mApiServer.postJSON(path);
             //
             callBack.subscribeOn(Schedulers.io())
                     .unsubscribeOn(Schedulers.io())
@@ -120,7 +119,7 @@ public class HttpTask {
                 //如果对象不为空
                 if (httpItem != null) {
                     //判断请求结果
-                    if (httpItem.getCode() == 1) {
+                    if (httpItem.getStatus() == 100) {
                         //如果mItem为空
                         if (mItem == null) {
                             //获取JSONObject数据
@@ -131,7 +130,7 @@ public class HttpTask {
                         }
                     } else {
                         //返回结果失败 提示
-                        errorHandle(ApiError.ErrorType.valueOf(httpItem.getCode(), httpItem.getMessage()));
+                        errorHandle(ApiError.ErrorType.valueOf(httpItem.getStatus(), httpItem.getMsg()));
                     }
                 } else {
                     //获取数据失败

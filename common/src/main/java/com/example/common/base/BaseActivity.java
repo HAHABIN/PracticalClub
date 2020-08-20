@@ -38,22 +38,36 @@ public abstract class BaseActivity extends AppCompatActivity {
     private Unbinder mUnBinder;
     protected LinearLayout mainLayout;
 
-    protected final int whiteStatusbar = 1;
-    protected final int translucentStatusbar = 3;
 
-    protected void statusBar(int status) {
+    /**
+     * 状态栏枚举
+     */
+    public enum StatusBarEnum {
+        WHITE, //白色状态栏
+        TRANSLUCENT, //透明状态栏
+        BLACK, //自定义颜色状态栏
+    }
+
+    /**
+     * 设置状态栏
+     * @param status 类型选择
+     */
+    protected void statusBar(StatusBarEnum status) {
         StatusBarUtil.transparencyBar(this);
         View statusbar = findViewById(R.id.status_bar_view_id);
         ViewGroup.LayoutParams params = statusbar.getLayoutParams();
         int height = StatusBarUtil.getStatusBarHeight(getBaseContext());
         switch (status) {
-            case whiteStatusbar:
+            case WHITE:
                 statusbar.setBackgroundColor(getResources().getColor(R.color.color_white_navbar));
                 StatusBarUtil.StatusBarLightMode(this);
                 break;
-            case translucentStatusbar:
+            case TRANSLUCENT:
                 StatusBarUtil.StatusBarLightMode(this);
                 height = 0;
+                break;
+            case BLACK:
+                statusbar.setBackgroundColor(getResources().getColor(R.color.color_1d1f20));
                 break;
         }
         params.height = height;
@@ -72,7 +86,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         //View注入
         mUnBinder = ButterKnife.bind(this);
 
-
         processLogic();
         initParam();
         initView();
@@ -90,7 +103,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             mainLayout.addView(View.inflate(this, getLayoutId(), null),
                     new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         }
-        statusBar(whiteStatusbar);
+        //默认状态栏
+        statusBar(StatusBarEnum.BLACK);
     }
 
     @LayoutRes

@@ -3,13 +3,15 @@
     package="com.luck.main">
 
     <application>
+        <activity android:name=".activity.MainActivity"></activity>
         <activity
-            android:name=".StartupActivity"
+            android:name=".activity.StartupActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

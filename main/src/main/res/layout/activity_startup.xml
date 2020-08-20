@@ -2,34 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_startup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".StartupActivity">
+    android:background="@mipmap/bg_app"
+    tools:context=".activity.StartupActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="标题"
-        android:gravity="center"/>
-    <Button
-        android:id="@+id/bt_t"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="跳转"
-        />
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/tv_content"
-            android:background="@color/color_1d1f20"
-            android:textColor="@color/color_ffffff"
-            android:padding="@dimen/dimen_10dp"
-            />
-    </androidx.core.widget.NestedScrollView>
 
 
 </LinearLayout>

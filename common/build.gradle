@@ -82,4 +82,9 @@ dependencies {
     api libraries["logger"]
     api libraries["picture_library"]
 
+    //富文本markdown
+    implementation libraries['markwon:core']
+    implementation libraries['markwon:image']
+    implementation libraries['markwon:image-glide']
+    implementation libraries['android-gif-drawable']
 }

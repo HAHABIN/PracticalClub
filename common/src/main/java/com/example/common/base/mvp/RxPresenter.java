@@ -2,8 +2,7 @@ package com.example.common.base.mvp;
 
 
 
-import com.example.common.base.HttpItem;
-import com.example.common.base.mvp.BaseContract;
+import com.example.common.http.HttpItem;
 import com.example.common.http.ApiError;
 import com.example.common.http.HttpHelper;
 import com.example.common.http.TaskListener;

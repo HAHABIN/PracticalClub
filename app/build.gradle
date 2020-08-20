@@ -37,6 +37,23 @@ android {
     buildFeatures {
         dataBinding = true
     }
+
+    signingConfigs {
+        debug {
+            storeFile file('../appkey.jks')//签名文件路径
+            storePassword "123456"
+            keyAlias "key"
+            keyPassword "123456"  //签名密码
+            println("====== signingConfigs.debug ======")
+        }
+        release {
+            storeFile file('../appkey.jks')//签名文件路径
+            storePassword "123456"
+            keyAlias "key"
+            keyPassword "123456"  //签名密码
+            println("====== signingConfigs.release ======")
+        }
+    }
 }
 
 dependencies {

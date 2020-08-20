@@ -8,6 +8,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -22,12 +23,15 @@ import retrofit2.http.Path;
 public interface ApiServer {
 
 
+//    @FormUrlEncoded
+//    //添加请求头注解 解决中文乱码
+//    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+//    @POST("{path}")
+//    Observable<Response<ResponseBody>> postJSON(@Path(value = "path"
+//            , encoded = true) String path
+//            , @FieldMap Map<String, Object> param);
     @FormUrlEncoded
-    //添加请求头注解 解决中文乱码
-    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
-    @POST("{path}")
+    @GET("{path}")
     Observable<Response<ResponseBody>> postJSON(@Path(value = "path"
-            , encoded = true) String path
-            , @FieldMap Map<String, Object> param);
-
+            , encoded = true) String path);
 }

@@ -4,6 +4,7 @@ package com.example.common.base;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,9 +41,6 @@ import com.tencent.smtt.sdk.WebViewClient;
 public class WebActivity extends AppCompatActivity implements View.OnClickListener{
 
     public static String URL = "URL";
-    private TextView mTvNavTitle;
-    private FrameLayout mFlBack;
-    private FrameLayout mFlRightMore;
 
     public static void startActivity(Context context, String url) {
         Intent intent = new Intent(context, WebActivity.class);
@@ -51,7 +50,10 @@ public class WebActivity extends AppCompatActivity implements View.OnClickListen
         context.startActivity(intent);
     }
 
-
+    private TextView mTvNavTitle;
+    private FrameLayout mFlBack;
+    private FrameLayout mFlRightMore;
+    private ImageView mIvShare;
     private String mUrl = null;
 
     private ActivityWebBinding mBinding;
@@ -65,7 +67,7 @@ public class WebActivity extends AppCompatActivity implements View.OnClickListen
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            mUrl = bundle.getString("URL");
+            mUrl = bundle.getString(URL);
         }
 
         init();
@@ -81,8 +83,11 @@ public class WebActivity extends AppCompatActivity implements View.OnClickListen
         mFlBack = mBinding.includeToolbar.findViewById(R.id.fl_back);
         mTvNavTitle = mBinding.includeToolbar.findViewById(R.id.tv_nav_title);
         mFlRightMore = mBinding.includeToolbar.findViewById(R.id.fl_right_more);
+        mIvShare = mBinding.includeToolbar.findViewById(R.id.iv_share);
         mFlRightMore.setVisibility(View.VISIBLE);
+        mIvShare.setVisibility(View.VISIBLE);
         mFlRightMore.setOnClickListener(this);
+        mIvShare.setOnClickListener(this);
         mFlBack.setOnClickListener(this);
     }
 
@@ -171,6 +176,12 @@ public class WebActivity extends AppCompatActivity implements View.OnClickListen
                 }
             });
             popupWindow.showPopupWindow(mFlRightMore);
+        } else if (id == R.id.iv_share) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, URL);
+            startActivity(Intent.createChooser(intent, getTitle()));
         }
     }
 }
