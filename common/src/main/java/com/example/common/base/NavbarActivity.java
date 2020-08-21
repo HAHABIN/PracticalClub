@@ -32,7 +32,7 @@ public abstract class NavbarActivity extends BaseActivity {
     }
 
     protected void titleText(String text) {
-        ((TextView) navbar_v.findViewById(R.id.tv_title)).setText(text);
+        ((TextView) findViewById(R.id.tv_title)).setText(text);
     }
 
     protected TextView getTitleView() {
@@ -51,6 +51,9 @@ public abstract class NavbarActivity extends BaseActivity {
         navbar_v.findViewById(R.id.fl_right_more).setVisibility(View.VISIBLE);
     }
 
+    protected void setShareVisiable() {
+        navbar_v.findViewById(R.id.iv_share).setVisibility(View.VISIBLE);
+    }
     protected void setRightBg(int resID){
         setRightMoreVisiable();
         navbar_v.findViewById(R.id.iv_right).setBackgroundResource(resID);

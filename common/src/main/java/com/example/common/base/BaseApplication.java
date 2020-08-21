@@ -51,8 +51,9 @@ public class BaseApplication extends Application {
 
             @Override
             public void onViewInitFinished(boolean b) {
-                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-                Log.e("wy","加载内核是否成功:"+b);
+                Log.e("xxx","hasLoad"+b);
+                //此处将内核加载是否成功的状态保存到本地，SharePreference工具类可换为自己的
+//                SharedPreferenceUtils.saveBoolean(getApplicationContext(),"hasLoad",b);
             }
         });
     }

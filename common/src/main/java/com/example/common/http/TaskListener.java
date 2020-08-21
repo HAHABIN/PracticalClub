@@ -1,6 +1,8 @@
 package com.example.common.http;
 
 
+import com.example.common.bean.HttpItem;
+
 import org.json.JSONObject;
 
 public interface TaskListener {

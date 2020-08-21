@@ -1,143 +1,119 @@
-
 package com.example.common.base;
 
+
+import android.annotation.SuppressLint;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 
 import com.example.common.R;
-import com.example.common.databinding.ActivityWebBinding;
+import com.example.common.R2;
 import com.example.common.popupwindow.MenuPopWindow;
 import com.example.common.utils.ToastUtils;
+import com.orhanobut.logger.Logger;
 import com.tencent.smtt.sdk.WebChromeClient;
-import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-/**
- * 文 件 名: WebActivity
- * 创 建 人: 易冬
- * 创建日期: 2017/4/21 09:24
- * 邮   箱: onlyloveyd@gmail.com
- * 博   客: https://onlyloveyd.cn
- * 描   述：内部网页显示Activity
- */
-public class WebActivity extends AppCompatActivity implements View.OnClickListener{
+public class WebActivity extends NavbarActivity {
 
-    public static String URL = "URL";
+    public static String KURL = "kUrl";
+
 
     public static void startActivity(Context context, String url) {
         Intent intent = new Intent(context, WebActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(URL, url);
+        bundle.putString(KURL, url);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }
 
-    private TextView mTvNavTitle;
-    private FrameLayout mFlBack;
-    private FrameLayout mFlRightMore;
-    private ImageView mIvShare;
-    private String mUrl = null;
 
-    private ActivityWebBinding mBinding;
+    WebView mWvContent;
+    ProgressBar mProgressbar;
+
+
+    private String mUrl;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int getLayoutId() {
+        return R.layout.activity_web;
+    }
 
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_web);
-
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        if (bundle != null) {
-            mUrl = bundle.getString(URL);
+    @Override
+    protected void initParam() {
+        super.initParam();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            this.mUrl = extras.getString(KURL);
         }
-
-        init();
-        initWebViewSettings();
-
-        mBinding.wvContent.removeJavascriptInterface("searchBoxJavaBridge_");
-        mBinding.wvContent.removeJavascriptInterface("accessibilityTraversal");
-        mBinding.wvContent.removeJavascriptInterface("accessibility");
-        mBinding.wvContent.loadUrl(mUrl);
-    }
-
-    private void init() {
-        mFlBack = mBinding.includeToolbar.findViewById(R.id.fl_back);
-        mTvNavTitle = mBinding.includeToolbar.findViewById(R.id.tv_nav_title);
-        mFlRightMore = mBinding.includeToolbar.findViewById(R.id.fl_right_more);
-        mIvShare = mBinding.includeToolbar.findViewById(R.id.iv_share);
-        mFlRightMore.setVisibility(View.VISIBLE);
-        mIvShare.setVisibility(View.VISIBLE);
-        mFlRightMore.setOnClickListener(this);
-        mIvShare.setOnClickListener(this);
-        mFlBack.setOnClickListener(this);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        mBinding.wvContent.onPause();
+    protected void initView() {
+        initWeb();
+        setRightMoreVisiable();
+        setShareVisiable();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mBinding.wvContent.onResume();
-    }
+    /**
+     * 初始化WebView
+     */
+    private void initWeb() {
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mBinding.wvContent.destroy();
-    }
+        mWvContent = findViewById(R.id.wv_content);
+        mProgressbar = findViewById(R.id.progressbar);
 
+        mWvContent.getSettings().setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
+        mWvContent.getSettings().setBuiltInZoomControls(true); //设置内置的缩放控件。若为false，则该WebView不可缩放
+        mWvContent.getSettings().setDisplayZoomControls(true); //隐藏原生的缩放控件
+        mWvContent.getSettings().setBlockNetworkImage(false);//解决图片不显示
+        mWvContent.getSettings().setLoadsImagesAutomatically(true); //支持自动加载图片
+        mWvContent.getSettings().setDefaultTextEncodingName("utf-8");//设置编码格式
 
-    private void initWebViewSettings() {
-        WebSettings settings = mBinding.wvContent.getSettings();
-        settings.setJavaScriptEnabled(true);
-        settings.setLoadWithOverviewMode(true);
-        settings.setAppCacheEnabled(true);
-        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        settings.setSupportZoom(true);
-        settings.setSavePassword(false);
-        mBinding.wvContent.setWebChromeClient(new WebChromeClient() {
+        mWvContent.removeJavascriptInterface("searchBoxJavaBridge_");
+        mWvContent.removeJavascriptInterface("accessibilityTraversal");
+        mWvContent.removeJavascriptInterface("accessibility");
+        mWvContent.loadUrl(mUrl);
+        Logger.d("监控界面加载的url为: " + mUrl);
+
+        //该界面打开更多链接
+        mWvContent.setWebViewClient(new WebViewClient() {
+
             @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                super.onProgressChanged(view, newProgress);
-                mBinding.progressbar.setProgress(newProgress);
+            public boolean shouldOverrideUrlLoading(WebView webView, String s) {
+                webView.loadUrl(s);
+                return true;
+            }
+        });
+        //监听网页的加载进度
+        mWvContent.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView webView, int newProgress) {
+                mProgressbar.setProgress(newProgress);
                 if (newProgress == 100) {
-                    mBinding.progressbar.setVisibility(View.GONE);
+                    mProgressbar.setVisibility(View.GONE);
                 } else {
-                    mBinding.progressbar.setVisibility(View.VISIBLE);
+                    mProgressbar.setVisibility(View.VISIBLE);
                 }
             }
-
 
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
-                mTvNavTitle.setText(title);
             }
         });
-        mBinding.wvContent.setWebViewClient(new WebViewClient() {
+
+        mWvContent.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url != null) view.loadUrl(url);
                 return true;
@@ -146,15 +122,61 @@ public class WebActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if (id == R.id.fl_back) {
-            finish();
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    /**
+     * 激活 js 调用，设置 webView 活跃状态
+     */
+    @SuppressLint("SetJavaScriptEnabled")
+    @Override
+    public void onResume() {
+        super.onResume();
+        mWvContent.onResume();
+        mWvContent.getSettings().setJavaScriptEnabled(true);
+    }
+
+    /**
+     * ：退出界面暂停 webView的活跃，并且关闭 JS 支持
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mWvContent.onPause();
+    }
+
+    /**
+     * 销毁 防止内存泄漏
+     */
+    @Override
+    protected void onDestroy() {
+        if (this.mWvContent != null) {
+            mWvContent.destroy();
+        }
+        super.onDestroy();
+
+    }
+
+    @OnClick({R2.id.iv_share, R2.id.fl_right_more})
+    public void onViewClicked(View view) {
+        int id = view.getId();
+        if (id == R.id.iv_share) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, mUrl);
+            startActivity(Intent.createChooser(intent, getTitle()));
         } else if (id == R.id.fl_right_more) {
-            MenuPopWindow popupWindow = new MenuPopWindow(WebActivity.this, new MenuPopWindow.MenuPopClick() {
+            MenuPopWindow menuPopWindow = new MenuPopWindow(mContext, new MenuPopWindow.MenuPopClick() {
                 @Override
                 public void WebRefresh() {
-                    mBinding.wvContent.reload();
+                    mWvContent.reload();
                 }
 
                 @Override
@@ -175,13 +197,8 @@ public class WebActivity extends AppCompatActivity implements View.OnClickListen
                     ToastUtils.show_s("已复制到剪切板");
                 }
             });
-            popupWindow.showPopupWindow(mFlRightMore);
-        } else if (id == R.id.iv_share) {
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, URL);
-            startActivity(Intent.createChooser(intent, getTitle()));
+
+            menuPopWindow.showPopupWindow(findViewById(R.id.fl_right_more));
         }
     }
 }

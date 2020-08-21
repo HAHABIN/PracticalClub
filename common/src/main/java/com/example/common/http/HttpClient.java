@@ -3,14 +3,20 @@ package com.example.common.http;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.common.bean.request.BaseRequest;
+import com.orhanobut.logger.Logger;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Create by HABIN on 2019/11/5
@@ -45,18 +51,18 @@ public class HttpClient {
         this.mContext = context;
     }
 
-    public void startTask(HttpHelper.TaskType type, TaskListener listener, HashMap<String, Object> params) {
+    public void startTask(HttpHelper.TaskType type, TaskListener listener, BaseRequest request) {
 
         if (listener != null) listener.taskStarted(type);
 
-        HttpTask task = new HttpTask(mContext, apiServer, listener).load(type, params);
+        HttpTask task = new HttpTask(mContext, apiServer, listener).load(type, request);
         mTaskArray.add(task);
         Log.d("TaskArray", "startTask: "+mTaskArray.size());
     }
 
-    public void startTask(HttpHelper.TaskType type, TaskListener listener, HashMap<String, Object> params, Class item) {
+    public void startTask(HttpHelper.TaskType type, TaskListener listener, BaseRequest request, Class item) {
         if (listener != null) listener.taskStarted(type);
-        HttpTask task = new HttpTask(mContext, apiServer, listener, item).load(type, params);
+        HttpTask task = new HttpTask(mContext, apiServer, listener, item).load(type, request);
         mTaskArray.add(task);
         Log.d("TaskArray", "startTask: "+mTaskArray.size());
     }
@@ -70,10 +76,19 @@ public class HttpClient {
     private void initRetrofitManager() {
         mTaskArray = new ArrayList<>();
 
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                //打印retrofit日志
+                Logger.d(message);
+            }
+        });
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(DEFAULT_CONNECT_TIME, TimeUnit.SECONDS)//连接超时时间
                 .writeTimeout(DEFAULT_WRITE_TIME, TimeUnit.SECONDS)//设置写操作超时时间
                 .readTimeout(DEFAULT_READ_TIME, TimeUnit.SECONDS)//设置读操作超时时间
+                .addInterceptor(loggingInterceptor)//日志打印
                 .build();
 
         retrofit = new Retrofit.Builder()

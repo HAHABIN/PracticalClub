@@ -1,6 +1,9 @@
 package com.luck.main.contract;
 
 import com.example.common.base.mvp.BaseContract;
+import com.example.common.bean.CategoryEnum;
+import com.example.common.bean.TypeEnum;
+import com.example.common.bean.request.BaseRequest;
 
 /**
  * <一句话功能简述> <功能详细描述>
@@ -16,7 +19,7 @@ public interface MainContract extends BaseContract {
     }
 
     interface Presenter extends BasePresenter<View>{
-
+        void getDemo(CategoryEnum category, TypeEnum type, int page, int count);
     }
 
 }

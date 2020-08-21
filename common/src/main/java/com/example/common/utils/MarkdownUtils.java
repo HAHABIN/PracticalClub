@@ -23,7 +23,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.target.Target;
 import com.example.common.R;
-import com.example.common.base.WebActivity;
 
 import org.commonmark.node.Node;
 
@@ -107,7 +106,7 @@ public class MarkdownUtils {
                         builder.linkResolver(new LinkResolver() {
                             @Override
                             public void resolve(@NonNull View view, @NonNull String link) {
-                                WebActivity.startActivity(mContext,link);
+//                                WebActivity.startActivity(mContext,link);
                             }
                         })
                                 .syntaxHighlight(new SyntaxHighlightNoOp())

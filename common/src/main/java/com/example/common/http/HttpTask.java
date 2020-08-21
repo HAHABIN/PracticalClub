@@ -2,6 +2,8 @@ package com.example.common.http;
 
 import android.content.Context;
 
+import com.example.common.bean.HttpItem;
+import com.example.common.bean.request.BaseRequest;
 import com.example.common.utils.JsonUtil;
 import com.example.common.utils.Utils;
 import com.orhanobut.logger.Logger;
@@ -11,7 +13,6 @@ import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
-import java.util.HashMap;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -31,7 +32,7 @@ public class HttpTask {
     //请求接口类型
     private HttpHelper.TaskType type;
     //请求参数
-    private HashMap<String, Object> params;
+    private BaseRequest request;
     //请求接口监听返回
     private TaskListener mListener;
     //
@@ -66,7 +67,7 @@ public class HttpTask {
         this.mListener = listener;
     }
     //加载请求
-    public HttpTask load(HttpHelper.TaskType type, HashMap<String, Object> params) {
+    public HttpTask load(HttpHelper.TaskType type, BaseRequest request) {
         //获取当前请求网络接口类型 并赋值成员变量
         this.type = type;
         //判断是否有网络
@@ -76,13 +77,13 @@ public class HttpTask {
         }
 
         //获取当前请求参数 并赋值成员变量
-        this.params = params;
+        this.request = request;
         //判断请求参数是否为空
-        if (params == null) params = new HashMap<>();
+        if (request == null) request = new BaseRequest();
 
         try {
             //通过请求网络接口类型返回访问接口
-            String path = HttpHelper.getMethod(type,params);
+            String path = HttpHelper.getMethod(type,request);
 
             //设置请求参数和接口
             callBack = mApiServer.postJSON(path);

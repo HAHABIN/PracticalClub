@@ -20,6 +20,10 @@ android {
                 arguments = [ AROUTER_MODULE_NAME : cfg.applicationId ]
             }
         }
+
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+        }
     }
 
     buildTypes {
@@ -34,9 +38,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    buildFeatures {
-        dataBinding = true
-    }
 
     signingConfigs {
         debug {
