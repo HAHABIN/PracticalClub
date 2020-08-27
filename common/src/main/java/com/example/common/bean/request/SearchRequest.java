@@ -35,6 +35,33 @@ public class SearchRequest extends BaseRequest {
      */
     private String type;
 
+    public SearchRequest(String search, String category, String type) {
+        this.search = search;
+        this.category = category;
+        this.type = type;
+    }
 
+    public String getSearch() {
+        return search;
+    }
 
+    public void setSearch(String search) {
+        this.search = search;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

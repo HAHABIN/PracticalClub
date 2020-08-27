@@ -1,9 +1,8 @@
 package com.luck.main.contract;
 
 import com.example.common.base.mvp.BaseContract;
-import com.example.common.bean.CategoryEnum;
-import com.example.common.bean.TypeEnum;
-import com.example.common.bean.request.BaseRequest;
+import com.example.common.bean.beanEnum.CategoryEnum;
+import com.example.common.bean.beanEnum.TypeEnum;
 
 /**
  * <一句话功能简述> <功能详细描述>

@@ -30,6 +30,7 @@ public interface ApiServer {
 //    Observable<Response<ResponseBody>> postJSON(@Path(value = "path"
 //            , encoded = true) String path
 //            , @FieldMap Map<String, Object> param);
+
     @GET("{path}")
     Observable<Response<ResponseBody>> postJSON(@Path(value = "path") String path);
 }

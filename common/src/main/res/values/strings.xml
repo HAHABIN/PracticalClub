@@ -1,1 +1,8 @@
-<resources></resources>
+<resources>
+    <!-- HttpHelper-->
+    <string name="string_get_category">data/category/%1$s/type/%2$s/page/%3$d/count/%4$d</string>
+    <string name="string_get_search">search/%1$s/category/%2$s/type/%3$s/page/%4$d/count/%5$d</string>
+    <string name="string_get_hot">hot/%1$s/category/%2$s/count/%3$d</string>
+
+
+</resources>

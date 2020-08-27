@@ -11,11 +11,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.common.R;
 
 import java.io.File;
@@ -157,6 +160,10 @@ public class Utils {
     public static int getColor(int id) {
         return ContextCompat.getColor(getContext(), id);
     }
+
+    public static void Glideload( String url, ImageView view) {
+        Glide.with(context).load(url).into(view);
+}
 
 }
 

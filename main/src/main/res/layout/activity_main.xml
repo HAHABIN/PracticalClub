@@ -7,9 +7,37 @@
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
-
-    <TextView
-        android:id="@+id/tv_content"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="@dimen/nav_bar_h"
+        android:background="@color/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="19sp"
+            android:text="@string/title_hot"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            android:layout_marginLeft="@dimen/dimen_15dp"
+            />
+    </RelativeLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:labelVisibilityMode="labeled"
+        android:background="@color/white"
+        app:itemIconTint="@drawable/seleced_menu_color"
+        app:itemTextColor="@drawable/seleced_menu_color"
+        app:menu="@menu/bottom_nav_menu"
+        />
 </LinearLayout>

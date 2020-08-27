@@ -104,7 +104,7 @@ public class SwipeRecyclerView extends FrameLayout implements SwipeRefreshLayout
         recyclerView.addOnScrollListener(scrollListener);
     }
 
-    public void SetLayoutManager(RecyclerView.LayoutManager layoutManager) {
+    public void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
         recyclerView.setLayoutManager(layoutManager);
     }
 

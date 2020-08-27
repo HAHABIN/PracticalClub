@@ -67,7 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 height = 0;
                 break;
             case BLACK:
-                statusbar.setBackgroundColor(getResources().getColor(R.color.color_1d1f20));
+                statusbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 break;
         }
         params.height = height;

@@ -12,6 +12,8 @@ package com.example.common.base;
 
 import android.view.View;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.common.R;
 import com.example.common.base.adapter.CommonAdapter;
 import com.example.common.base.mvp.BaseContract;
@@ -60,6 +62,9 @@ public abstract class SwipeRecyclerFragment<T extends BaseContract.BasePresenter
     @Override
     protected void initView(View view) {
         swipeRecyclerView = view.findViewById(R.id.swipe_rec);
+        if (setLayoutManager()!=null) {
+            swipeRecyclerView.setLayoutManager(setLayoutManager());
+        }
         mAdapter = getAdapter();
         swipeRecyclerView.setAdapter(mAdapter);
     }
@@ -119,6 +124,8 @@ public abstract class SwipeRecyclerFragment<T extends BaseContract.BasePresenter
     protected abstract T bindPresenter();
     /**加载数据*/
     protected abstract void RequestData();
+    /** 设置布局 默认线性*/
+    protected abstract RecyclerView.LayoutManager setLayoutManager();
 
     protected void startRefresh() {
         swipeRecyclerView.setRefreshing(true);
@@ -139,6 +146,7 @@ public abstract class SwipeRecyclerFragment<T extends BaseContract.BasePresenter
     protected void stopLoad() {
         swipeRecyclerView.stopLoad();
     }
+
 
     /**
      * @param data 列表数据

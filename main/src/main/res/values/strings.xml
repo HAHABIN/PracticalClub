@@ -1,1 +1,8 @@
-<resources></resources>
+<resources>
+    <string name="title_hot">热门</string>
+    <string name="title_girl">福利</string>
+    <string name="title_real_stuff">干货</string>
+    <string name="title_article">文章</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

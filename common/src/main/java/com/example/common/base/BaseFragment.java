@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.common.dialog.PictureDialog;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -25,10 +27,15 @@ public abstract class BaseFragment extends Fragment {
     protected Activity mActivity;
     private Unbinder mUnBinder;
     private View mRoot;
-
+    protected PictureDialog dialog;
 
     @LayoutRes
     protected abstract int getLayoutId();
+
+    /**
+     * 初始化参数,包括intent传递过来的参数
+     */
+    protected void initParam(){}
 
     protected void processLogic() {
     }
@@ -40,7 +47,15 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void initData();
 
 
+
     /******************************lifecycle area*****************************************/
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initParam();
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -98,4 +113,30 @@ public abstract class BaseFragment extends Fragment {
         }
         return (VT) mRoot.findViewById(id);
     }
+
+    /**
+     * loading dialog
+     */
+    protected void showPleaseDialog() {
+        if (!getActivity().isFinishing()) {
+            dismissDialog();
+            dialog = new PictureDialog(getContext());
+            dialog.show();
+        }
+    }
+
+    /**
+     * dismiss dialog
+     */
+    protected void dismissDialog() {
+        try {
+            if (dialog != null && dialog.isShowing()) {
+                dialog.dismiss();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

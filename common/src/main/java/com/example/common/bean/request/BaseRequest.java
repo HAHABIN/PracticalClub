@@ -26,7 +26,12 @@ public class BaseRequest {
     /** 范围 10-50*/
     private int count;
 
+    public BaseRequest() {
+    }
 
+    public BaseRequest(int count) {
+        this.count = count;
+    }
 
     public int getPage() {
         return page;

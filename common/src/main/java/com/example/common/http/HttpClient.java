@@ -3,6 +3,7 @@ package com.example.common.http;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.common.base.mvp.BaseContract;
 import com.example.common.bean.request.BaseRequest;
 import com.orhanobut.logger.Logger;
 
@@ -51,7 +52,7 @@ public class HttpClient {
         this.mContext = context;
     }
 
-    public void startTask(HttpHelper.TaskType type, TaskListener listener, BaseRequest request) {
+    public void startTask(HttpHelper.TaskType type,  BaseContract.BaseView listener, BaseRequest request) {
 
         if (listener != null) listener.taskStarted(type);
 
@@ -60,7 +61,7 @@ public class HttpClient {
         Log.d("TaskArray", "startTask: "+mTaskArray.size());
     }
 
-    public void startTask(HttpHelper.TaskType type, TaskListener listener, BaseRequest request, Class item) {
+    public void startTask(HttpHelper.TaskType type, BaseContract.BaseView listener, BaseRequest request, Class item) {
         if (listener != null) listener.taskStarted(type);
         HttpTask task = new HttpTask(mContext, apiServer, listener, item).load(type, request);
         mTaskArray.add(task);

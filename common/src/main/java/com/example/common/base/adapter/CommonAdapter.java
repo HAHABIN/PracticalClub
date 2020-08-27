@@ -76,10 +76,18 @@ public abstract class CommonAdapter<DATA,RV extends RecyclerView.ViewHolder> ext
             return getContentViewHolder(parent,viewType);
     }
 
+    /**
+     * @return 测试用 设置显示几个数据
+     */
+    protected abstract int setItemCount();
 
     @Override
     public int getItemCount() {
+        if (setItemCount()!=0) {
+            return setItemCount();
+        }
         return mDataList == null ? 0 : mDataList.size();
     }
+
 
 }

@@ -11,9 +11,13 @@
 package com.example.common.bean.entity;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.common.bean.HttpItem;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,17 +71,17 @@ public class CategoryEntity extends HttpItem {
      "status": 100,
      "total_counts": 96
      }*/
-    private List<ResultBean> data;
+    private ArrayList<ResultBean> data;
 
-    public List<ResultBean> getData() {
+    public ArrayList<ResultBean> getData() {
         return data;
     }
 
-    public void setData(List<ResultBean> data) {
+    public void setData(ArrayList<ResultBean> data) {
         this.data = data;
     }
 
-    public static class ResultBean implements Serializable {
+    public static class ResultBean implements Parcelable {
         private String _id;
 
         private String author;
@@ -103,6 +107,34 @@ public class CategoryEntity extends HttpItem {
         private String url;
 
         private int views;
+
+        protected ResultBean(Parcel in) {
+            _id = in.readString();
+            author = in.readString();
+            category = in.readString();
+            createdAt = in.readString();
+            desc = in.readString();
+            images = in.createStringArrayList();
+            likeCounts = in.readInt();
+            publishedAt = in.readString();
+            stars = in.readInt();
+            title = in.readString();
+            type = in.readString();
+            url = in.readString();
+            views = in.readInt();
+        }
+
+        public static final Creator<ResultBean> CREATOR = new Creator<ResultBean>() {
+            @Override
+            public ResultBean createFromParcel(Parcel in) {
+                return new ResultBean(in);
+            }
+
+            @Override
+            public ResultBean[] newArray(int size) {
+                return new ResultBean[size];
+            }
+        };
 
         public String get_id() {
             return _id;
@@ -225,6 +257,28 @@ public class CategoryEntity extends HttpItem {
                     ", url='" + url + '\'' +
                     ", views=" + views +
                     '}';
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(_id);
+            dest.writeString(author);
+            dest.writeString(category);
+            dest.writeString(createdAt);
+            dest.writeString(desc);
+            dest.writeStringList(images);
+            dest.writeInt(likeCounts);
+            dest.writeString(publishedAt);
+            dest.writeInt(stars);
+            dest.writeString(title);
+            dest.writeString(type);
+            dest.writeString(url);
+            dest.writeInt(views);
         }
     }
 

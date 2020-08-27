@@ -72,7 +72,7 @@ public class StartupActivity extends BaseActivity {
             //动画结束
             @Override
             public void onAnimationEnd(Animation animation) {
-                WebActivity.startActivity(mContext,"https://www.baidu.com");
+                startActivity(MainActivity.class,null);
                 finish();
             }
 

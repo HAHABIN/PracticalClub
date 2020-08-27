@@ -2,6 +2,7 @@ package com.example.common.http;
 
 import android.content.Context;
 
+import com.example.common.base.mvp.BaseContract;
 import com.example.common.bean.HttpItem;
 import com.example.common.bean.request.BaseRequest;
 import com.example.common.utils.JsonUtil;
@@ -34,7 +35,8 @@ public class HttpTask {
     //请求参数
     private BaseRequest request;
     //请求接口监听返回
-    private TaskListener mListener;
+//    private TaskListener mListener;
+    private BaseContract.BaseView mListener;
     //
     private ApiServer mApiServer;
     //上下问
@@ -54,14 +56,14 @@ public class HttpTask {
     }
 
     //初始化访问数据 有对象情况
-    public HttpTask(Context context, ApiServer apiServer, TaskListener listener, Class item_c) {
+    public HttpTask(Context context, ApiServer apiServer, BaseContract.BaseView listener, Class item_c) {
         this.mContext = context;
         this.mApiServer = apiServer;
         this.mListener = listener;
         this.mItem = item_c;
     }
     //初始化访问数据 无对象情况
-    public HttpTask(Context context, ApiServer apiServer, TaskListener listener) {
+    public HttpTask(Context context, ApiServer apiServer, BaseContract.BaseView listener) {
         this.mContext = context;
         this.mApiServer = apiServer;
         this.mListener = listener;
@@ -163,11 +165,11 @@ public class HttpTask {
         public void onComplete() {
             if (mItem != null) {
                 if (mListener != null && result != null) {
-                    mListener.taskFinished(type, result);
+                    mListener.onSuccess(type, result);
                 }
             } else {
                 if (mListener != null && reustObject != null) {
-                    mListener.taskFinished(type, reustObject);
+                    mListener.onSuccess(type, reustObject);
                 }
             }
         }
@@ -178,7 +180,7 @@ public class HttpTask {
     }
 
     private void errorHandle(ApiError.ErrorType errorType) {
-        if (mListener != null) mListener.taskError(type, new ApiError(errorType));
+        if (mListener != null) mListener.onFailure(type, new ApiError(errorType));
     }
 
 }

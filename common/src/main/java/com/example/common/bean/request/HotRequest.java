@@ -21,18 +21,26 @@ package com.example.common.bean.request;
 public class HotRequest extends BaseRequest {
 
     /** hot_type 可接受参数 views（浏览数） | likes（点赞数） | comments（评论数）❌*/
-    private String hot_type;
+    private String hotType;
     /** ategory 可接受参数 Article | GanHuo | Girl*/
     private String category;
-    /** count: [1, 20]*/
-    private int count;
 
-    public String getHot_type() {
-        return hot_type;
+    /** count: [1, 20]*/
+//    private int count;
+
+    public HotRequest(String hotType, String category,int count) {
+        super(count);
+        this.hotType = hotType;
+        this.category = category;
+
     }
 
-    public void setHot_type(String hot_type) {
-        this.hot_type = hot_type;
+    public String getHotType() {
+        return hotType;
+    }
+
+    public void setHotType(String hotType) {
+        this.hotType = hotType;
     }
 
     public String getCategory() {
@@ -43,11 +51,4 @@ public class HotRequest extends BaseRequest {
         this.category = category;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
 }

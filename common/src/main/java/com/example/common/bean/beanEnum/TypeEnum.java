@@ -1,5 +1,5 @@
 /**
- * 文 件 名:  CategoryEnum
+ * 文 件 名:  TypeEnum
  * 版    权:  QuanTeng Tech. Copyright YYYY-YYYY,  All rights reserved
  * 描    述:  <描述>
  * 修 改 人:  HABIN
@@ -8,7 +8,7 @@
  * 修改单号:  <修改单号>
  * 修改内容:  <修改内容>
  */
-package com.example.common.bean;
+package com.example.common.bean.beanEnum;
 
 /**
  * <一句话功能简述> <功能详细描述>
@@ -18,16 +18,19 @@ package com.example.common.bean;
  * @see [相关类/方法]
  * @since [产品/模块版本]
  */
-public enum CategoryEnum {
-
-    Ganhuo("Ganhuo"),
-    Acticle("Article"),
-    Girl("Girl");
-
+public enum TypeEnum {
+    ANDROID("Android"),
+    IOS("IOS"),
+    Flutter("Flutter"),
+    Girl("Girl"),
+    All("All"),
+    app("app"),
+    backend("backend"),
+    frontend("frontend");
 
     private String type;
 
-    CategoryEnum( String type) {
+    TypeEnum(String type) {
         this.type = type;
     }
 
