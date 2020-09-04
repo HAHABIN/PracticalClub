@@ -20,7 +20,7 @@ package com.example.common.bean.beanEnum;
  */
 public enum CategoryEnum {
 
-    Ganhuo("Ganhuo"),
+    GanHuo("GanHuo"),
     Acticle("Article"),
     Girl("Girl");
 

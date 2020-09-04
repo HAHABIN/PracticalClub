@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.common.R;
 import com.example.common.base.adapter.CommonAdapter;
 import com.example.common.base.mvp.BaseContract;
+import com.example.common.utils.Utils;
 import com.example.common.widget.view.ListEmptyView;
 import com.example.common.widget.view.SwipeRecyclerView;
 
@@ -34,17 +35,22 @@ public abstract class SwipeRecyclerFragment<T extends BaseContract.BasePresenter
 
     protected SwipeRecyclerView swipeRecyclerView;
 
-    protected ListEmptyView listEmptyView;
 
-    protected ArrayList mDataList;
+    protected ArrayList mDataList = new ArrayList<>();;
 
     protected T mPresenter;
 
-    /**当前页*/
+    /**
+     * 当前页
+     */
     protected int mStart = 1;
-    /**每页请求数*/
+    /**
+     * 每页请求数
+     */
     protected int mSize = 10;
-    /**空白页状态 0 为搜索空白页  1 为刷新空白页 2 无网络空白页*/
+    /**
+     * 空白页状态 0 为搜索空白页  1 为刷新空白页 2 无网络空白页
+     */
     protected int mSearchType = 1;
 
     protected CommonAdapter mAdapter;
@@ -53,17 +59,29 @@ public abstract class SwipeRecyclerFragment<T extends BaseContract.BasePresenter
     protected int getLayoutId() {
         return R.layout.base_refresh;
     }
-    /** 绑定*/
+
+    /**
+     * 绑定
+     */
     @Override
-    protected void processLogic(){
+    protected void processLogic() {
         mPresenter = bindPresenter();
         mPresenter.attachView(this);
     }
+
     @Override
     protected void initView(View view) {
         swipeRecyclerView = view.findViewById(R.id.swipe_rec);
-        if (setLayoutManager()!=null) {
-            swipeRecyclerView.setLayoutManager(setLayoutManager());
+
+        setLayoutManager();
+        setEmptyView();
+        View mHeadView = setHeaderView();
+        if (mHeadView != null) {
+            swipeRecyclerView.addHeaderView(mHeadView);
+        }
+        View emptyView = setEmptyView();
+        if (emptyView != null) {
+            swipeRecyclerView.setEmptyView(emptyView);
         }
         mAdapter = getAdapter();
         swipeRecyclerView.setAdapter(mAdapter);
@@ -95,37 +113,36 @@ public abstract class SwipeRecyclerFragment<T extends BaseContract.BasePresenter
      * 设置适配器
      */
     public abstract CommonAdapter getAdapter();
+
     /**
      * 设置空白界面
-     * 不设置返回null
      *
      * @return
      */
-    public void setEmptyView() {
-        if (listEmptyView == null) {
-            listEmptyView = new ListEmptyView(getContext());
-            swipeRecyclerView.setEmptyView(listEmptyView);
-        }
+    protected View setEmptyView() {
+        return null;
     }
 
     /**
      * 设置头部界面
-     * 不设置返回null
      *
      * @return
      */
-    public void setHeaderView(View view) {
-        if (view !=null) {
-            swipeRecyclerView.addHeaderView(view);
-        }
+    protected View setHeaderView() {
+        return null;
     }
 
-    /** 绑定Presenter*/
+
+    /**
+     * 绑定Presenter
+     */
     protected abstract T bindPresenter();
-    /**加载数据*/
+
+    /**
+     * 加载数据
+     */
     protected abstract void RequestData();
-    /** 设置布局 默认线性*/
-    protected abstract RecyclerView.LayoutManager setLayoutManager();
+
 
     protected void startRefresh() {
         swipeRecyclerView.setRefreshing(true);
@@ -135,7 +152,7 @@ public abstract class SwipeRecyclerFragment<T extends BaseContract.BasePresenter
         swipeRecyclerView.noMoreData();
     }
 
-    protected void loadMoreData(){
+    protected void loadMoreData() {
         swipeRecyclerView.loadMoreData();
     }
 
@@ -147,38 +164,47 @@ public abstract class SwipeRecyclerFragment<T extends BaseContract.BasePresenter
         swipeRecyclerView.stopLoad();
     }
 
+    protected void setLayoutManager() {
+    }
 
     /**
      * @param data 列表数据
-     * mSearchType 空白页状态 0 为搜索空白页  1 为刷新空白页 2 无网络空白页
+     *             mSearchType 空白页状态 0 为搜索空白页  1 为刷新空白页 2 无网络空白页
      */
     protected void setAdapterData(ArrayList data) {
         stopLoad();
-        if (mDataList == null) {
-            mDataList = new ArrayList<>();
-        }
-        if (mStart == 1) {
-            mDataList.clear();
-        }
-        /** 设置空白页*/
-        setEmptyView();
-        //判断数据是否为空
         if (data != null && !data.isEmpty()) {
-            mDataList.addAll(data);
-            if (data.size() < mSize) {
-                noMoreData();
-            }
-        } else {
-            if (mSearchType == 0) {
-                listEmptyView.setNoSearchView();
-            } else if (mSearchType == 1){
-                listEmptyView.setNoDataView();
+            if (mStart == 1) {
+                mDataList.clear();
+                mDataList.addAll(data);
+                mAdapter.setData(mDataList);
             } else {
-                listEmptyView.setNoNetWorkView();
+                int start = mDataList.size();
+                int end = data.size();
+                mAdapter.notifyItemRangeData(start,end,data);
+            }
+            if (Utils.isNotMoreData(data)) {
+                noMoreData();
             }
         }
 
-        mAdapter.setData(mDataList);
+//        //判断数据是否为空
+//        if (data != null && !data.isEmpty()) {
+//            mDataList.addAll(data);
+//            if (data.size() < mSize) {
+//                noMoreData();
+//            }
+//        } else {
+//            if (mSearchType == 0) {
+//                listEmptyView.setNoSearchView();
+//            } else if (mSearchType == 1){
+//                listEmptyView.setNoDataView();
+//            } else {
+//                listEmptyView.setNoNetWorkView();
+//            }
+//        }
+//
+//        mAdapter.setData(mDataList);
     }
 
     @Override

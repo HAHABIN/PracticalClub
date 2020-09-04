@@ -22,10 +22,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.common.R;
 
 import java.io.File;
+import java.util.List;
 
 
 /**
- *
  * Class desc: ui 操作相关封装
  */
 public class Utils {
@@ -45,6 +45,7 @@ public class Utils {
      */
     public static void init(@NonNull final Context context) {
         Utils.context = context.getApplicationContext();
+        StringUtils.init(context);
     }
 
     /**
@@ -69,6 +70,7 @@ public class Utils {
         }
         return false;
     }
+
     /**
      * 适配的主要代码
      *
@@ -101,13 +103,15 @@ public class Utils {
         appDm.scaledDensity = activityDm.scaledDensity;
         appDm.densityDpi = activityDm.densityDpi;
     }
-    public static int dipPx( float dpValue) {
+
+    public static int dipPx(float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
-    public static int px2dip( float pxValue){
+
+    public static int px2dip(float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
-        return (int)(pxValue / scale + 0.5f);
+        return (int) (pxValue / scale + 0.5f);
     }
 
     /**
@@ -126,6 +130,7 @@ public class Utils {
         intent.setData(data);
         context.startActivity(intent);
     }
+
     public static int getAndroidSDKVersion() {
         int version = 0;
         try {
@@ -161,9 +166,23 @@ public class Utils {
         return ContextCompat.getColor(getContext(), id);
     }
 
-    public static void Glideload( String url, ImageView view) {
-        Glide.with(context).load(url).into(view);
-}
+    public static void Glideload(String url, ImageView view) {
+        Glide.with(context)
+                .load(url)
+                .apply(new RequestOptions().placeholder(R.drawable.ic_empty_pic))
+                .into(view);
+
+
+    }
+    //判断集合非空
+    public static boolean isNotEmpty(List datas) {
+        return datas != null && !datas.isEmpty();
+    }
+
+    //判断列表数据已到达最后
+    public static boolean isNotMoreData(List datas) {
+        return datas == null || datas.size() < 10;
+    }
 
 }
 

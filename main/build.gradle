@@ -47,7 +47,9 @@ dependencies {
     testImplementation libraries['junit']
     androidTestImplementation  libraries['junitx']
     androidTestImplementation  libraries['espresso-core']
+
     annotationProcessor libraries.butterknife_compiler
     implementation project(':common')
+
 
 }

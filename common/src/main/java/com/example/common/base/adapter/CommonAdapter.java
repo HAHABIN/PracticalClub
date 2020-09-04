@@ -64,6 +64,10 @@ public abstract class CommonAdapter<DATA,RV extends RecyclerView.ViewHolder> ext
         notifyDataSetChanged();
     }
 
+    public void notifyItemRangeData(int start,int end,ArrayList<DATA> dataList){
+        mDataList.addAll(dataList);
+        notifyItemRangeChanged(start,end);
+    }
     /**
      * 获取 内容的viewHolder
      */
@@ -79,12 +83,14 @@ public abstract class CommonAdapter<DATA,RV extends RecyclerView.ViewHolder> ext
     /**
      * @return 测试用 设置显示几个数据
      */
-    protected abstract int setItemCount();
+    protected  int setTestCount() {
+        return 0;
+    }
 
     @Override
     public int getItemCount() {
-        if (setItemCount()!=0) {
-            return setItemCount();
+        if (setTestCount()!=0) {
+            return setTestCount();
         }
         return mDataList == null ? 0 : mDataList.size();
     }

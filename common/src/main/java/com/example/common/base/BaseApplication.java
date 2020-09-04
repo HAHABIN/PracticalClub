@@ -42,6 +42,7 @@ public class BaseApplication extends Application {
         HttpClient.getInstance().setContext(this);
         Utils.init(this);
         ToastUtils.init(this);
+
         registerActivityListener();
         QbSdk.initX5Environment(this, new QbSdk.PreInitCallback() {
             @Override

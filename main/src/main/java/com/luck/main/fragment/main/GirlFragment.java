@@ -1,6 +1,7 @@
 package com.luck.main.fragment.main;
 
 import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,8 @@ import com.example.common.bean.entity.CategoryEntity;
 import com.example.common.http.ApiError;
 import com.example.common.http.HttpHelper;
 import com.example.common.utils.ToastUtils;
+import com.example.common.utils.Utils;
+import com.example.common.widget.view.ListEmptyView;
 import com.luck.main.adapter.GirlAdapter;
 import com.luck.main.contract.GirlContract;
 import com.luck.main.presenter.GirlPresenter;
@@ -21,7 +24,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class GirlFragment extends SwipeRecyclerFragment<GirlContract.Presenter> implements GirlContract.View {
+public class  GirlFragment extends SwipeRecyclerFragment<GirlContract.Presenter> implements GirlContract.View {
 
 
 
@@ -50,8 +53,20 @@ public class GirlFragment extends SwipeRecyclerFragment<GirlContract.Presenter> 
     }
 
     @Override
-    protected RecyclerView.LayoutManager setLayoutManager() {
-        return new GridLayoutManager(getContext(),2);
+    protected void setLayoutManager() {
+        super.setLayoutManager();
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+        layoutManager.setReverseLayout(false);
+        swipeRecyclerView.getRecyclerView().setLayoutManager(layoutManager);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) swipeRecyclerView.getLayoutParams();
+        params.setMargins(Utils.dipPx(8), 0, Utils.dipPx(8), 0);
+        swipeRecyclerView.setLayoutParams(params);
+    }
+
+    @Override
+    protected View setEmptyView() {
+        return new ListEmptyView(getContext());
     }
 
     @Override

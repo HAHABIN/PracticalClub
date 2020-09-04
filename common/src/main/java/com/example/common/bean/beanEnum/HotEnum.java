@@ -20,9 +20,9 @@ package com.example.common.bean.beanEnum;
  */
 public enum HotEnum {
 
-    浏览数("Views"),
-    点赞数("likes"),
-    评论数("comments");
+    views("views"),   //浏览数
+    likes("likes"),   //点赞数
+    comments("comments");//评论数
 
 
     private String type;

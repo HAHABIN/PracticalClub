@@ -7,6 +7,7 @@
 
     <!--文字颜色-->
     <color name="color_ffffff">#ffffff</color>
+    <color name="color_1f1f1f">#1f1f1f</color>
     <color name="textWhite2">#000</color>
     <color name="textBrown">#6A4A57</color>
     <color name="color_green_72b85f">#1cbdd1</color>

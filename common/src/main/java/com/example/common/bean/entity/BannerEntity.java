@@ -15,6 +15,7 @@ import android.os.Parcelable;
 
 import com.example.common.bean.HttpItem;
 import com.example.common.http.HttpClient;
+import com.stx.xhb.xbanner.entity.SimpleBannerInfo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class BannerEntity extends HttpItem {
         this.data = data;
     }
 
-    public static class ResultBean implements Parcelable {
+    public static class ResultBean extends SimpleBannerInfo implements Parcelable {
 
         private String title;
 
@@ -123,6 +124,11 @@ public class BannerEntity extends HttpItem {
             dest.writeString(title);
             dest.writeString(image);
             dest.writeString(url);
+        }
+
+        @Override
+        public Object getXBannerUrl() {
+            return url;
         }
     }
 }

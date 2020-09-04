@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorPrimary"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.stx.xhb.xbanner.XBanner
+                android:id="@+id/banner_info"
+                android:layout_width="match_parent"
+                android:layout_height="172dp"
+                app:AutoPlayTime="3000"
+                app:isAutoPlay="true"
+                app:isClipChildrenMode="true"
+                app:isHandLoop="true"
+                app:isShowIndicatorOnlyOne="true"
+                app:isShowNumberIndicator="false"
+                app:isShowTips="true"
+                app:clipChildrenLeftRightMargin="50dp"
+                app:pointNormal="@drawable/shape_ring_white_6"
+                app:pointSelect="@drawable/shape_round_white_6"
+                app:pageChangeDuration="800"
+                app:pointsPosition="RIGHT" />
+
+            <ImageView
+                android:id="@+id/iv_banner_info_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_20dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="165dp"
+                android:layout_marginRight="70dp"
+                android:background="@mipmap/bg_banner_bottom"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_info_banner_name"
+            android:textSize="@dimen/text_14sp"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_height="75dp"
+            android:textColor="@color/white"
+            android:maxLines="1"
+            android:maxEms="20"
+            android:ellipsize="end"
+            android:background="@mipmap/bg_space_bottom_2"/>
+    </LinearLayout>
+</FrameLayout>

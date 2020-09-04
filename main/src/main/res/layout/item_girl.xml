@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
 
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/dimen_8dp"
         app:cardElevation="@dimen/dimen_5dp"
-        android:clickable="true"
         app:cardUseCompatPadding="true"
         android:foreground="?android:attr/selectableItemBackground">
 
@@ -26,15 +25,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/ic_pic"
                 android:scaleType="fitXY"
                 />
 
             <TextView
                 android:id="@+id/tv_content"
                 android:textSize="@dimen/text_14sp"
-                android:ellipsize="end"
-                android:maxLines="2"
                 android:padding="@dimen/dimen_5dp"
                 android:textColor="@color/color_1d1f20"
                 android:layout_width="match_parent"
@@ -44,7 +40,6 @@
         </LinearLayout>
         <TextView
             android:id="@+id/tv_title"
-            android:text="第几期"
             android:layout_marginLeft="@dimen/dimen_12dp"
             android:layout_marginTop="@dimen/dimen_5dp"
             android:textSize="@dimen/text_24sp"

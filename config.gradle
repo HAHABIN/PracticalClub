@@ -58,6 +58,8 @@ ext {
             "android-gif-drawable"          : "pl.droidsonroids.gif:android-gif-drawable:1.2.20",
             //腾讯x5内核
             "tencent:tbssdk:sdk:43903"      : "com.tencent.tbs.tbssdk:sdk:43903",
+            //轮播图
+            "xBanner"                       : "com.github.xiaohaibin:XBanner:androidx_v1.0.6",
 
 
     ]

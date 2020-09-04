@@ -69,6 +69,5 @@ dependencies {
     implementation libraries['markwon:image-glide']
     implementation libraries['android-gif-drawable']
     implementation libraries['tencent:tbssdk:sdk:43903']
-
-
+    api  libraries['xBanner']
 }
