@@ -54,5 +54,6 @@
             android:maxEms="20"
             android:ellipsize="end"
             android:background="@mipmap/bg_space_bottom_2"/>
+
     </LinearLayout>
 </FrameLayout>

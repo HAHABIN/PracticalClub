@@ -8,14 +8,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.common.base.SwipeRecyclerFragment;
+import com.example.common.base.WebActivity;
 import com.example.common.base.adapter.CommonAdapter;
 import com.example.common.bean.HttpItem;
 import com.example.common.bean.entity.CategoryEntity;
 import com.example.common.http.ApiError;
 import com.example.common.http.HttpHelper;
+import com.example.common.utils.StringUtils;
 import com.example.common.utils.ToastUtils;
 import com.example.common.utils.Utils;
 import com.example.common.widget.view.ListEmptyView;
+import com.luck.main.R;
 import com.luck.main.adapter.GirlAdapter;
 import com.luck.main.contract.GirlContract;
 import com.luck.main.presenter.GirlPresenter;
@@ -96,4 +99,5 @@ public class  GirlFragment extends SwipeRecyclerFragment<GirlContract.Presenter>
         dismissDialog();
         ToastUtils.show_s(e.getMessage());
     }
+
 }

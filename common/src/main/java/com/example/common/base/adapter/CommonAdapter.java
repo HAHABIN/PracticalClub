@@ -12,6 +12,7 @@ package com.example.common.base.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,12 @@ public abstract class CommonAdapter<DATA,RV extends RecyclerView.ViewHolder> ext
     protected ArrayList<DATA> mDataList;
 
     protected final LayoutInflater mInflater;
+
+    private OnItemClick mOnItemClick;
+
+    public void setOnItemClickListener(OnItemClick onItemClick){
+        this.mOnItemClick = onItemClick;
+    }
 
     public CommonAdapter(Context mContext) {
         this.mContext = mContext;
@@ -71,13 +78,24 @@ public abstract class CommonAdapter<DATA,RV extends RecyclerView.ViewHolder> ext
     /**
      * 获取 内容的viewHolder
      */
-    protected abstract RV getContentViewHolder(@NonNull ViewGroup parent,
-                                                                    int type);
+    protected abstract RV getContentViewHolder(@NonNull ViewGroup parent, int type);
 
     @NonNull
     @Override
     public RV onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return getContentViewHolder(parent,viewType);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RV holder, int position) {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemClick!=null) {
+                    mOnItemClick.onItemClick(holder,position);
+                }
+            }
+        });
     }
 
     /**
@@ -94,6 +112,12 @@ public abstract class CommonAdapter<DATA,RV extends RecyclerView.ViewHolder> ext
         }
         return mDataList == null ? 0 : mDataList.size();
     }
+
+    //定义一个点击事件的接口
+    public interface OnItemClick {
+        void onItemClick(RecyclerView.ViewHolder holder, int position);
+    }
+
 
 
 }

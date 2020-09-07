@@ -13,12 +13,13 @@ public class HttpHelper {
 
     public enum TaskType {
 
-        Girl, //女孩
-        GanHuo,//干货
-        Article, //文章
-        Banners, //轮播图
-        Hot, //本周最热
-        search,//搜索
+        Girl,       //女孩
+        GanHuo,     //干货
+        Article,    //文章
+        Banners,    //轮播图
+        Hot,        //本周最热
+        search,     //搜索
+        Random,     //随机
 
     }
 
@@ -58,6 +59,14 @@ public class HttpHelper {
                         , searchRequest.getPage()
                         , searchRequest.getCount());
                 break;
+            case Random:
+                CategoryRequest random = (CategoryRequest) request;
+                method = String.format(Utils.getContext().getString(R.string.string_get_random)
+                        , random.getCategory()
+                        , random.getType()
+                        , random.getCount());
+                break;
+
         }
         return method;
     }

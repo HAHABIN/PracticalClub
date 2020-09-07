@@ -71,6 +71,7 @@ public class HotHeadView extends LinearLayout {
         initView(context);
     }
 
+
     public void startTurning() {
         mBanner.startAutoPlay();
     }

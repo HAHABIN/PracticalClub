@@ -27,10 +27,17 @@ public interface HotContract extends BaseContract {
 
         /**
          * 获取热门
-         * @param hotEnum  热门类型
-         * @param categoryEnum  类型
+         * @param hot  热门类型
+         * @param category  分类
          *
          */
-        void getHotData(HotEnum hotEnum, CategoryEnum categoryEnum);
+        void getHotData(String hot, String category);
+
+        /**
+         * 随机获取
+         * @param category 分类
+         * @param type 具体分类
+         */
+        void getRandom(String category,String type);
     }
 }

@@ -41,4 +41,18 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
+
+
+    <!--popupwindow-->
+    <style name="style_pop_anim_alpha">
+        <item name="android:windowEnterAnimation">@anim/popshow_alpha_anim</item>
+        <!-- 指定显示的动画xml -->
+        <item name="android:windowExitAnimation">@anim/pophidden_alpha_anim</item>
+        <!-- 指定消失的动画xml -->
+    </style>
+    <style name="view_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">#ebebeb</item>
+    </style>
 </resources>

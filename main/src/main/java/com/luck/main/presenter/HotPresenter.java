@@ -13,9 +13,11 @@ package com.luck.main.presenter;
 import com.example.common.base.mvp.RxPresenter;
 import com.example.common.bean.beanEnum.CategoryEnum;
 import com.example.common.bean.beanEnum.HotEnum;
+import com.example.common.bean.beanEnum.TypeEnum;
 import com.example.common.bean.entity.BannerEntity;
 import com.example.common.bean.entity.CategoryEntity;
 import com.example.common.bean.entity.HotEntity;
+import com.example.common.bean.request.CategoryRequest;
 import com.example.common.bean.request.HotRequest;
 import com.example.common.http.HttpClient;
 import com.example.common.http.HttpHelper;
@@ -39,11 +41,21 @@ public class HotPresenter extends RxPresenter<HotContract.View> implements HotCo
     }
 
     @Override
-    public void getHotData(HotEnum hotEnum, CategoryEnum categoryEnum) {
+    public void getHotData(String hot, String category) {
         //默认直接20条
-        HotRequest hotRequest = new HotRequest(hotEnum.getType(),categoryEnum.getType(),20);
+        HotRequest hotRequest = new HotRequest(hot,category,20);
         HttpClient.getInstance().startTask(HttpHelper.TaskType.Hot,mView,hotRequest, HotEntity.class);
     }
+
+    @Override
+    public void getRandom(String category, String type) {
+        //默认直接20条
+        CategoryRequest random = new CategoryRequest();
+        random.setCategory(category);
+        random.setType(type);
+        random.setCount(20);
+        HttpClient.getInstance().startTask(HttpHelper.TaskType.Random,mView,random, CategoryEntity.class);
+}
 
 
 }

@@ -10,6 +10,10 @@
  */
 package com.example.common.bean.beanEnum;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * <一句话功能简述> <功能详细描述>
  *
@@ -19,19 +23,22 @@ package com.example.common.bean.beanEnum;
  * @since [产品/模块版本]
  */
 public enum TypeEnum {
-    ANDROID("Android"),
-    IOS("IOS"),
-    Flutter("Flutter"),
-    Girl("Girl"),
-    All("All"),
-    app("app"),
-    backend("backend"),
-    frontend("frontend");
+    ANDROID("Android","Android"),
+    IOS("iOS","iOS"),
+    Flutter("Flutter","Flutter"),
+    Girl("Girl","福利"),
+    All("All","All"),
+    app("app","APP"),
+    backend("backend","后端"),
+    frontend("frontend","前端");
 
     private String type;
 
-    TypeEnum(String type) {
+    private String name;
+
+    TypeEnum(String type,String name) {
         this.type = type;
+        this.name = name;
     }
 
     public String getType() {
@@ -40,5 +47,30 @@ public enum TypeEnum {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public static String getTypeByName(String name) {
+        for (TypeEnum typeEnum :TypeEnum.values()) {
+            if (typeEnum.getName().equals(name)) {
+                return typeEnum.getType();
+            }
+        }
+        return "Android";
+    }
+    public static String getNameByType(String type) {
+        for (TypeEnum typeEnum :TypeEnum.values()) {
+            if (typeEnum.getType().equals(type)) {
+                return typeEnum.getName();
+            }
+        }
+        return "Android";
     }
 }

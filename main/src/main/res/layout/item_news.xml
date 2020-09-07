@@ -8,12 +8,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.example.common.widget.view.RoundImageView
             android:id="@+id/riv_pic"
             android:layout_width="@dimen/dimen_118dp"
             android:layout_height="@dimen/dimen_80dp"
             android:src="@drawable/ic_empty_pic"
             android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
             app:radius="8dp"
             android:layout_marginHorizontal="@dimen/dimen_12dp"
             />

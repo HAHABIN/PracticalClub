@@ -20,15 +20,17 @@ package com.example.common.bean.beanEnum;
  */
 public enum CategoryEnum {
 
-    GanHuo("GanHuo"),
-    Acticle("Article"),
-    Girl("Girl");
+    GanHuo("GanHuo","干货"),
+    Article("Article","文章"),
+    Girl("Girl","福利");
 
 
     private String type;
+    private String name;
 
-    CategoryEnum( String type) {
+    CategoryEnum( String type,String name) {
         this.type = type;
+        this.name = name;
     }
 
     public String getType() {
@@ -37,5 +39,30 @@ public enum CategoryEnum {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public static String getTypeByName(String name) {
+        for (CategoryEnum categoryEnum :CategoryEnum.values()) {
+            if (categoryEnum.getName().equals(name)) {
+                return categoryEnum.getType();
+            }
+        }
+        return "GanHuo";
+    }
+    public static String getNameByType(String type) {
+        for (CategoryEnum categoryEnum :CategoryEnum.values()) {
+            if (categoryEnum.getType().equals(type)) {
+                return categoryEnum.getName();
+            }
+        }
+        return "干货";
     }
 }

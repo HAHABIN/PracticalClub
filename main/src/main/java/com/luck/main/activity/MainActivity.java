@@ -47,8 +47,8 @@ public class MainActivity extends BaseActivity {
         mFragmentList = new ArrayList<>();
         mFragmentList.add(new HotFragment());
         mFragmentList.add(new GirlFragment());
-        mFragmentList.add(new HotFragment());
-        mFragmentList.add(new HotFragment());
+        mFragmentList.add(new GirlFragment());
+        mFragmentList.add(new GirlFragment());
         mVpAdapter = new VpAdapter(getSupportFragmentManager(),mFragmentList);
         mViewPager.setAdapter(mVpAdapter);
         mViewPager.setCurrentItem(0);
