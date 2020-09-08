@@ -7,6 +7,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.example.common.base.WebActivity;
 import com.example.common.base.adapter.CommonAdapter;
 import com.example.common.base.mvp.BaseMVPFragment;
@@ -22,6 +24,8 @@ import com.example.common.http.HttpHelper;
 import com.example.common.popupwindow.TypePopWindow;
 import com.example.common.widget.view.ListEmptyView;
 import com.example.common.widget.view.SwipeRecyclerView;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.luck.main.R;
 import com.luck.main.R2;
 import com.luck.main.adapter.NewsAdapter;
@@ -66,6 +70,12 @@ public class HotFragment extends BaseMVPFragment<HotContract.Presenter> implemen
     ImageView mIvCategoryTypeArrow;
     @BindView(R2.id.iv_sort_type_arrow)
     ImageView mIvSortTypeArrow;
+    @BindView(R2.id.collapsing_toolbar_layout)
+    CollapsingToolbarLayout mCollapsingToolbarLayout;
+    @BindView(R2.id.appBar_hot)
+    AppBarLayout mAppBarHot;
+    @BindView(R2.id.srl_hot)
+    SwipeRefreshLayout mSrlHot;
 
 
     /**
@@ -130,9 +140,9 @@ public class HotFragment extends BaseMVPFragment<HotContract.Presenter> implemen
     public void onResume() {
         super.onResume();
         mHotHeadView.startTurning();
-        mTvDateType.setText(isHot?getString(R.string.title_hot):getString(R.string.string_random));
+        mTvDateType.setText(isHot ? getString(R.string.title_hot) : getString(R.string.string_random));
         mTvCategoryType.setText(CategoryEnum.getNameByType(mCurrCategoryType));
-        mTvSortType.setText(isHot?HotEnum.getNameByType(mCurrHotType):TypeEnum.getNameByType(mCurrRandomType));
+        mTvSortType.setText(isHot ? HotEnum.getNameByType(mCurrHotType) : TypeEnum.getNameByType(mCurrRandomType));
     }
 
     @Override
@@ -146,16 +156,51 @@ public class HotFragment extends BaseMVPFragment<HotContract.Presenter> implemen
         mAdapter = new NewsAdapter(getContext());
         mSwipeRec.setEmptyView(new ListEmptyView(getContext()));
         mSwipeRec.setAdapter(mAdapter);
-
+        initRefreshStyle();
         setPopDate();
     }
+    private void initRefreshStyle(){
+        mSrlHot.setProgressViewEndTarget(false,200);
+        //加载颜色是循环播放的，只要没有完成刷新就会一直循环
+        mSrlHot.setColorSchemeResources(
+                android.R.color.holo_red_light,
+                android.R.color.holo_green_light,
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_purple
+        );
 
+    }
     @Override
     protected void initListener() {
+
         mHotHeadView.setHotHeaderViewListener(new HotHeadView.HotHeaderViewListener() {
             @Override
             public void openBanner(BannerEntity.ResultBean item) {
                 WebActivity.startActivity(getContext(), item.getUrl());
+            }
+        });
+
+        mAppBarHot.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                /*向上拉 偏移量为0*/
+                if (verticalOffset >= 0) {
+                    mSrlHot.setEnabled(true);
+                    mSwipeRec.getSwipeRefreshLayout().setEnabled(false);
+                } else {
+                    mSrlHot.setEnabled(false);
+                    mSwipeRec.getSwipeRefreshLayout().setEnabled(true);
+                }
+            }
+        });
+
+        mSrlHot.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mStart = 1;
+                RequestData();
+                mSwipeRec.getSwipeRefreshLayout().setEnabled(true);
             }
         });
 
@@ -228,7 +273,6 @@ public class HotFragment extends BaseMVPFragment<HotContract.Presenter> implemen
 
 
     public void RequestData() {
-        showPleaseDialog();
         if (isHot) {
             mPresenter.getHotData(mCurrHotType, mCurrCategoryType);
         } else {
@@ -247,6 +291,7 @@ public class HotFragment extends BaseMVPFragment<HotContract.Presenter> implemen
     public void onSuccess(HttpHelper.TaskType type, HttpItem item) {
         dismissDialog();
         mSwipeRec.stopLoad();
+        mSrlHot.setRefreshing(false);
         switch (type) {
             case Banners:
                 if (item instanceof BannerEntity) {
@@ -330,7 +375,6 @@ public class HotFragment extends BaseMVPFragment<HotContract.Presenter> implemen
         mSwipeRec.stopLoad();
         Toast.makeText(mActivity, e.getMessage(), Toast.LENGTH_SHORT).show();
     }
-
 
 
     @OnClick({R2.id.ll_type, R2.id.ll_sort_type, R2.id.ll_category_type})

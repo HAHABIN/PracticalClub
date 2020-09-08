@@ -15,6 +15,7 @@ import android.view.View;
 import com.example.common.R;
 import com.example.common.base.adapter.CommonAdapter;
 import com.example.common.base.mvp.BaseContract;
+import com.example.common.utils.Utils;
 import com.example.common.widget.view.ListEmptyView;
 import com.example.common.widget.view.SwipeRecyclerView;
 
@@ -40,9 +41,12 @@ public abstract class SwipeRecyclerActivity<T extends BaseContract.BasePresenter
     protected T mPresenter;
 
     protected abstract T bindPresenter();
-    /** 绑定*/
+
+    /**
+     * 绑定
+     */
     @Override
-    protected void processLogic(){
+    protected void processLogic() {
         mPresenter = bindPresenter();
         mPresenter.attachView(this);
     }
@@ -104,10 +108,12 @@ public abstract class SwipeRecyclerActivity<T extends BaseContract.BasePresenter
     protected void initData() {
 
     }
+
     /**
      * 设置适配器
      */
     public abstract CommonAdapter getAdapter();
+
     /**
      * 设置空白界面
      * 不设置返回null
@@ -128,11 +134,10 @@ public abstract class SwipeRecyclerActivity<T extends BaseContract.BasePresenter
      * @return
      */
     public void setHeaderView(View view) {
-        if (view !=null) {
+        if (view != null) {
             swipeRecyclerView.addHeaderView(view);
         }
     }
-
 
 
     /**
@@ -148,7 +153,7 @@ public abstract class SwipeRecyclerActivity<T extends BaseContract.BasePresenter
         swipeRecyclerView.noMoreData();
     }
 
-    protected void loadMoreData(){
+    protected void loadMoreData() {
         swipeRecyclerView.loadMoreData();
     }
 
@@ -162,35 +167,44 @@ public abstract class SwipeRecyclerActivity<T extends BaseContract.BasePresenter
 
     /**
      * @param data 列表数据
-     * mSearchType 空白页状态 0 为搜索空白页  1 为刷新空白页 2 无网络空白页
+     *             mSearchType 空白页状态 0 为搜索空白页  1 为刷新空白页 2 无网络空白页
      */
     protected void setAdapterData(ArrayList data) {
         stopLoad();
         if (mDataList == null) {
             mDataList = new ArrayList<>();
         }
-        if (mStart == 1) {
-            mDataList.clear();
-        }
-        /** 设置空白页*/
-        setEmptyView();
-        //判断数据是否为空
-        if (data != null && !data.isEmpty()) {
-            mDataList.addAll(data);
-            if (data.size() < mSize) {
-                noMoreData();
+        //当返回数据不为空时 添加数据
+        if (Utils.isNotEmpty(data)) {
+            //当前获取第一页 清理原有数据 否则 后最后面添加新数据
+            if (mStart == 1) {
+                mDataList.clear();
+                mDataList.addAll(data);
+                mAdapter.setData(mDataList);
+            } else {
+                int start = mDataList.size();
+                int end = data.size();
+                mAdapter.notifyItemRangeData(start, end, data);
             }
         } else {
-            if (mSearchType == 0) {
-                listEmptyView.setNoSearchView();
-            } else if (mSearchType == 1){
-                listEmptyView.setNoDataView();
+            //如果数据为空 但原有数据不为空 设置没有更多  否则显示空白页
+            if (mDataList.size() != 0 && data.size() < mSize) {
+                noMoreData();
             } else {
-                listEmptyView.setNoNetWorkView();
+                switch (mSearchType) {
+                    case 0:
+                        listEmptyView.setNoSearchView();
+                        break;
+                    case 1:
+                        listEmptyView.setNoDataView();
+                        break;
+                    case 2:
+                        listEmptyView.setNoNetWorkView();
+                        break;
+                }
             }
         }
 
-        mAdapter.setData(mDataList);
     }
 
     @Override

@@ -36,7 +36,8 @@ public abstract class SwipeRecyclerFragment<T extends BaseContract.BasePresenter
     protected SwipeRecyclerView swipeRecyclerView;
 
 
-    protected ArrayList mDataList = new ArrayList<>();;
+    protected ArrayList mDataList = new ArrayList<>();
+    ;
 
     protected T mPresenter;
 
@@ -173,7 +174,7 @@ public abstract class SwipeRecyclerFragment<T extends BaseContract.BasePresenter
      */
     protected void setAdapterData(ArrayList data) {
         stopLoad();
-        if (data != null && !data.isEmpty()) {
+        if (Utils.isNotEmpty(data)) {
             if (mStart == 1) {
                 mDataList.clear();
                 mDataList.addAll(data);
@@ -181,10 +182,13 @@ public abstract class SwipeRecyclerFragment<T extends BaseContract.BasePresenter
             } else {
                 int start = mDataList.size();
                 int end = data.size();
-                mAdapter.notifyItemRangeData(start,end,data);
+                mAdapter.notifyItemRangeData(start, end, data);
             }
-            if (Utils.isNotMoreData(data)) {
-                noMoreData();
+        } else {
+            if (mDataList.size()!=0) {
+                if (data.size() < mSize) {
+                    noMoreData();
+                }
             }
         }
 

@@ -27,7 +27,7 @@ public enum TypeEnum {
     IOS("iOS","iOS"),
     Flutter("Flutter","Flutter"),
     Girl("Girl","福利"),
-    All("All","All"),
+    All("All","全部"),
     app("app","APP"),
     backend("backend","后端"),
     frontend("frontend","前端");

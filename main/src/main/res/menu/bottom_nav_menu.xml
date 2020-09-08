@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_hot"/>
     <item
         android:id="@+id/navigation_girl"
-        android:title="@string/title_girl"
+        android:title="@string/title_real_stuff"
         android:icon="@drawable/ic_hot"/>
     <item
         android:id="@+id/navigation_article"
@@ -15,6 +15,6 @@
         android:icon="@drawable/ic_hot"/>
     <item
         android:id="@+id/navigation_real_stuff"
-        android:title="@string/title_real_stuff"
+        android:title="@string/title_girl"
         android:icon="@drawable/ic_hot"/>
 </menu>

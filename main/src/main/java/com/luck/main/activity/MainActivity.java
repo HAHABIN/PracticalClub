@@ -13,6 +13,7 @@ import com.example.common.base.adapter.VpAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.luck.main.R;
 import com.luck.main.R2;
+import com.luck.main.fragment.main.ArticleFragment;
 import com.luck.main.fragment.main.GirlFragment;
 import com.luck.main.fragment.main.HotFragment;
 
@@ -47,7 +48,7 @@ public class MainActivity extends BaseActivity {
         mFragmentList = new ArrayList<>();
         mFragmentList.add(new HotFragment());
         mFragmentList.add(new GirlFragment());
-        mFragmentList.add(new GirlFragment());
+        mFragmentList.add(new ArticleFragment());
         mFragmentList.add(new GirlFragment());
         mVpAdapter = new VpAdapter(getSupportFragmentManager(),mFragmentList);
         mViewPager.setAdapter(mVpAdapter);
@@ -90,13 +91,13 @@ public class MainActivity extends BaseActivity {
                         mTvTitle.setText(getString(R.string.title_hot));
                         break;
                     case 1:
-                        mTvTitle.setText(getString(R.string.title_girl));
+                        mTvTitle.setText(getString(R.string.title_real_stuff));
                         break;
                     case 2:
                         mTvTitle.setText(getString(R.string.title_article));
                         break;
                     case 3:
-                        mTvTitle.setText(getString(R.string.title_real_stuff));
+                        mTvTitle.setText(getString(R.string.title_girl));
                         break;
                 }
             }

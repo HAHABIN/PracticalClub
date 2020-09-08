@@ -51,7 +51,6 @@ public class  GirlFragment extends SwipeRecyclerFragment<GirlContract.Presenter>
 
     @Override
     protected void RequestData() {
-        showPleaseDialog();
         mPresenter.getGirl(mStart,mSize);
     }
 
@@ -79,7 +78,6 @@ public class  GirlFragment extends SwipeRecyclerFragment<GirlContract.Presenter>
 
     @Override
     public void onSuccess(HttpHelper.TaskType type, HttpItem item) {
-        dismissDialog();
         switch (type) {
             case Girl:
                 if (item instanceof CategoryEntity) {
@@ -96,7 +94,6 @@ public class  GirlFragment extends SwipeRecyclerFragment<GirlContract.Presenter>
 
     @Override
     public void onFailure(HttpHelper.TaskType type, ApiError e) {
-        dismissDialog();
         ToastUtils.show_s(e.getMessage());
     }
 

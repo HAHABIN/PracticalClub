@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.common.base.WebActivity;
 import com.example.common.base.adapter.CommonAdapter;
+import com.example.common.bean.beanEnum.TypeEnum;
 import com.example.common.bean.entity.CategoryEntity;
 import com.example.common.utils.StringUtils;
 import com.example.common.utils.Utils;
@@ -62,7 +63,7 @@ public class NewsAdapter extends CommonAdapter<CategoryEntity.ResultBean, NewsAd
         if (resultBean.getImages()!=null&& resultBean.getImages().size() > 0) {
             Utils.Glideload(resultBean.getImages().get(0),holder.rivPic);
         }
-        holder.tvCategory.setText(resultBean.getType());
+        holder.tvCategory.setText(TypeEnum.getNameByType(resultBean.getType()));
         holder.tvAuthor.setText(resultBean.getAuthor());
         holder.tvDesc.setText(resultBean.getDesc());
         holder.tvTitle.setText(resultBean.getTitle());
