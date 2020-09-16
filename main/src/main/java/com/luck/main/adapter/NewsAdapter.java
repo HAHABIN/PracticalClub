@@ -61,7 +61,10 @@ public class NewsAdapter extends CommonAdapter<CategoryEntity.ResultBean, NewsAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CategoryEntity.ResultBean resultBean = mDataList.get(position);
         if (resultBean.getImages()!=null&& resultBean.getImages().size() > 0) {
+            holder.rivPic.setVisibility(View.VISIBLE);
             Utils.Glideload(resultBean.getImages().get(0),holder.rivPic);
+        } else {
+            holder.rivPic.setVisibility(View.GONE);
         }
         holder.tvCategory.setText(TypeEnum.getNameByType(resultBean.getType()));
         holder.tvAuthor.setText(resultBean.getAuthor());

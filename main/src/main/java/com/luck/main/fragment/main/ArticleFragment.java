@@ -10,6 +10,7 @@
  */
 package com.luck.main.fragment.main;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.example.common.base.SwipeRecyclerFragment;
@@ -43,10 +44,37 @@ import java.util.ArrayList;
 public class ArticleFragment extends SwipeRecyclerFragment<ArticleContract.Presenter> implements ArticleContract.View {
 
 
+    private static final String TYPE = "type";
+    private static final String TASK_TYPE = "taskType";
+
+    /**
+     * @param taskType 请求类型 0 文章 1 干货
+     * @param type
+     * @return
+     */
+    public static ArticleFragment newInstance(int taskType,String type) {
+        ArticleFragment fragment = new ArticleFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(TASK_TYPE, taskType);
+        bundle.putString(TYPE, type);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     private String type = TypeEnum.All.getType();
+
+    private int mTaskType ;
     @Override
     public CommonAdapter getAdapter() {
         return new NewsAdapter(getContext());
+    }
+
+    @Override
+    protected void initParam() {
+        super.initParam();
+        Bundle bundle = this.getArguments();
+        type =  bundle.getString(TYPE);
+        mTaskType =  bundle.getInt(TASK_TYPE);
     }
 
     @Override
@@ -66,10 +94,11 @@ public class ArticleFragment extends SwipeRecyclerFragment<ArticleContract.Prese
 
     @Override
     protected void RequestData() {
-        mPresenter.getData(HttpHelper.TaskType.Article
-                ,CategoryEnum.Article.getType()
+        mPresenter.getData(mTaskType==0?HttpHelper.TaskType.Article : HttpHelper.TaskType.GanHuo
+                ,mTaskType==0 ? CategoryEnum.Article.getType() : CategoryEnum.GanHuo.getType()
                 ,type,mStart,mSize);
     }
+
 
     @Override
     protected void initListener() {
@@ -88,6 +117,7 @@ public class ArticleFragment extends SwipeRecyclerFragment<ArticleContract.Prese
         dismissDialog();
         switch (type) {
             case Article:
+            case GanHuo:
                 if (item instanceof CategoryEntity) {
                     ArrayList<CategoryEntity.ResultBean> data = ((CategoryEntity) item).getData();
                     setAdapterData(data);

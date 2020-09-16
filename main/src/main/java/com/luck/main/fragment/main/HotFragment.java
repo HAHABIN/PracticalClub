@@ -124,7 +124,7 @@ public class HotFragment extends BaseMVPFragment<HotContract.Presenter> implemen
 
     private String mCurrHotType = HotEnum.views.getType();
 
-    private String mCurrRandomType = TypeEnum.ANDROID.getType();
+    private String mCurrRandomType = TypeEnum.All.getType();
     /**
      * 是否是热门
      */
@@ -333,7 +333,7 @@ public class HotFragment extends BaseMVPFragment<HotContract.Presenter> implemen
                     case 0:
                         mTvSortType.setText((isHot = position == 0)
                                 ? HotEnum.views.getName()
-                                : TypeEnum.ANDROID.getName());
+                                : TypeEnum.All.getName());
                         break;
                     case 1:
                         mCurrCategoryType = CategoryEnum.getTypeByName(types.get(position));
@@ -348,7 +348,8 @@ public class HotFragment extends BaseMVPFragment<HotContract.Presenter> implemen
                         break;
                 }
                 tvType.setText(types.get(position));
-                mSwipeRec.setRefreshing(true);
+                showPleaseDialog();
+                RequestData();
             }
 
             @Override

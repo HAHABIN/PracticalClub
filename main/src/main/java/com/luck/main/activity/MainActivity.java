@@ -7,12 +7,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.common.base.BaseActivity;
 import com.example.common.base.adapter.VpAdapter;
+import com.example.common.bean.beanEnum.TypeEnum;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.luck.main.R;
 import com.luck.main.R2;
+import com.luck.main.fragment.Ganhuo.GanHuoFragment;
 import com.luck.main.fragment.main.ArticleFragment;
 import com.luck.main.fragment.main.GirlFragment;
 import com.luck.main.fragment.main.HotFragment;
@@ -47,8 +50,8 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         mFragmentList = new ArrayList<>();
         mFragmentList.add(new HotFragment());
-        mFragmentList.add(new GirlFragment());
-        mFragmentList.add(new ArticleFragment());
+        mFragmentList.add(new GanHuoFragment());
+        mFragmentList.add(ArticleFragment.newInstance(0, TypeEnum.All.getType()));
         mFragmentList.add(new GirlFragment());
         mVpAdapter = new VpAdapter(getSupportFragmentManager(),mFragmentList);
         mViewPager.setAdapter(mVpAdapter);

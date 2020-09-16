@@ -6,8 +6,18 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_50dp"
+        android:background="@color/colorPrimaryDark"
         />
-    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/white_f3"
+        />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp2_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>
