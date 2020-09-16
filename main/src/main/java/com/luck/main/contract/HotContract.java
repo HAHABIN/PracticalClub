@@ -1,4 +1,3 @@
-
 package com.luck.main.contract;
 
 import com.example.common.base.mvp.BaseContract;
