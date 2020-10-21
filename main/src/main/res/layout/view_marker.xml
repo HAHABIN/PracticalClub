@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/dimen_1dp"
+    android:orientation="vertical"
+    android:background="@drawable/select_marker"
+    >
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_777777"
+        android:textSize="@dimen/text_11sp"
+        android:text="Jack"
+        android:layout_margin="@dimen/dimen_6dp"
+        />
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10,000 Birr"
+        android:textColor="@color/color_1f1f1f"
+        android:textSize="@dimen/text_11sp"
+        android:layout_marginHorizontal="@dimen/dimen_6dp"
+        android:layout_marginBottom="4dp"
+        />
+</LinearLayout>

@@ -7,7 +7,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.common.base.BaseActivity;
 import com.example.common.base.adapter.VpAdapter;
@@ -25,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class MainActivity extends BaseActivity {
@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity {
         mFragmentList.add(new GanHuoFragment());
         mFragmentList.add(ArticleFragment.newInstance(0, TypeEnum.All.getType()));
         mFragmentList.add(new GirlFragment());
-        mVpAdapter = new VpAdapter(getSupportFragmentManager(),mFragmentList);
+        mVpAdapter = new VpAdapter(getSupportFragmentManager(), mFragmentList);
         mViewPager.setAdapter(mVpAdapter);
         mViewPager.setCurrentItem(0);
     }
@@ -118,4 +118,10 @@ public class MainActivity extends BaseActivity {
     }
 
 
+
+
+    @OnClick(R2.id.iv_chart)
+    public void onViewClicked() {
+        startActivity(ChartDemoActivity.class,null);
+    }
 }

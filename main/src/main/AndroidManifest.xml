@@ -3,6 +3,7 @@
     package="com.luck.main">
 
     <application>
+        <activity android:name=".activity.ChartDemoActivity"></activity>
         <activity android:name=".activity.MainActivity" />
         <activity
             android:name=".activity.StartupActivity"

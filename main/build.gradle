@@ -50,6 +50,7 @@ dependencies {
 
     annotationProcessor libraries.butterknife_compiler
     implementation project(':common')
+    implementation project(':MPChartLib')
 
 
 }
