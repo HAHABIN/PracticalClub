@@ -4,10 +4,8 @@ package com.luck.main.activity;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.example.common.base.BaseActivity;
-import com.example.common.base.WebActivity;
 import com.example.common.dialog.AlertDialogView;
 import com.example.common.utils.LogCatStrategy;
 import com.example.common.utils.Utils;

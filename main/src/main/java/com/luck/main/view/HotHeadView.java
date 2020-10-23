@@ -1,7 +1,6 @@
 package com.luck.main.view;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.Glide;
 import com.example.common.bean.entity.BannerEntity;
 import com.example.common.utils.Utils;
 import com.luck.main.R;
 import com.stx.xhb.xbanner.XBanner;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <推进头部> <功能详细描述>

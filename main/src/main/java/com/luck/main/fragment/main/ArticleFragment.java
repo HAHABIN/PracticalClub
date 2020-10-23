@@ -5,8 +5,6 @@ import android.view.View;
 
 import com.example.common.base.SwipeRecyclerFragment;
 import com.example.common.base.adapter.CommonAdapter;
-import com.example.common.base.mvp.BaseContract;
-import com.example.common.base.mvp.BaseMVPFragment;
 import com.example.common.bean.HttpItem;
 import com.example.common.bean.beanEnum.CategoryEnum;
 import com.example.common.bean.beanEnum.TypeEnum;
@@ -14,7 +12,6 @@ import com.example.common.bean.entity.CategoryEntity;
 import com.example.common.http.ApiError;
 import com.example.common.http.HttpHelper;
 import com.example.common.widget.view.ListEmptyView;
-import com.luck.main.R;
 import com.luck.main.adapter.NewsAdapter;
 import com.luck.main.contract.ArticleContract;
 import com.luck.main.presenter.ArticlePresenter;

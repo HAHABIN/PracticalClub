@@ -9,7 +9,6 @@ import com.example.common.utils.JsonUtil;
 import com.example.common.utils.Utils;
 import com.orhanobut.logger.Logger;
 
-
 import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;

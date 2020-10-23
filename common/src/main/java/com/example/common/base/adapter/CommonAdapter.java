@@ -1,13 +1,3 @@
-/**
- * 文 件 名:  CommonAdapter
- * 版    权:  QuanTeng Tech. Copyright YYYY-YYYY,  All rights reserved
- * 描    述:  <描述>
- * 修 改 人:  HABIN
- * 修改时间:  2020/6/28
- * 跟踪单号:  <跟踪单号>
- * 修改单号:  <修改单号>
- * 修改内容:  <修改内容>
- */
 package com.example.common.base.adapter;
 
 import android.content.Context;

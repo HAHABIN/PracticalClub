@@ -1,18 +1,4 @@
-/**
- * 文 件 名:  TypeEnum
- * 版    权:  QuanTeng Tech. Copyright YYYY-YYYY,  All rights reserved
- * 描    述:  <描述>
- * 修 改 人:  HABIN
- * 修改时间:  2020/8/21
- * 跟踪单号:  <跟踪单号>
- * 修改单号:  <修改单号>
- * 修改内容:  <修改内容>
- */
 package com.example.common.bean.beanEnum;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * <一句话功能简述> <功能详细描述>

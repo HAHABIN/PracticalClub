@@ -1,7 +1,6 @@
 package com.example.common.base.mvp;
 
 import com.example.common.base.BaseFragment;
-import com.example.common.base.mvp.BaseContract;
 
 /**
  * MVPFragment基类

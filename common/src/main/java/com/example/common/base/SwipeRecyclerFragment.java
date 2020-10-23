@@ -1,24 +1,11 @@
-/**
- * 文 件 名:  SwipeRecyclerFragment
- * 版    权:  QuanTeng Tech. Copyright YYYY-YYYY,  All rights reserved
- * 描    述:  <描述>
- * 修 改 人:  HABIN
- * 修改时间:  2020/8/14
- * 跟踪单号:  <跟踪单号>
- * 修改单号:  <修改单号>
- * 修改内容:  <修改内容>
- */
 package com.example.common.base;
 
 import android.view.View;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.common.R;
 import com.example.common.base.adapter.CommonAdapter;
 import com.example.common.base.mvp.BaseContract;
 import com.example.common.utils.Utils;
-import com.example.common.widget.view.ListEmptyView;
 import com.example.common.widget.view.SwipeRecyclerView;
 
 import java.util.ArrayList;

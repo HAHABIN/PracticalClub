@@ -1,20 +1,9 @@
-/**
- * 文 件 名:  MenuPopWindow
- * 版    权:  QuanTeng Tech. Copyright YYYY-YYYY,  All rights reserved
- * 描    述:  <描述>
- * 修 改 人:  HABIN
- * 修改时间:  2020/8/19
- * 跟踪单号:  <跟踪单号>
- * 修改单号:  <修改单号>
- * 修改内容:  <修改内容>
- */
 package com.example.common.popupwindow;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 

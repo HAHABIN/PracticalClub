@@ -1,8 +1,6 @@
 package com.luck.main.contract;
 
 import com.example.common.base.mvp.BaseContract;
-import com.example.common.bean.beanEnum.TypeEnum;
-import com.example.common.bean.request.CategoryRequest;
 import com.example.common.http.HttpHelper;
 
 /**

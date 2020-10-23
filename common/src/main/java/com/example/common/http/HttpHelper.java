@@ -7,8 +7,6 @@ import com.example.common.bean.request.HotRequest;
 import com.example.common.bean.request.SearchRequest;
 import com.example.common.utils.Utils;
 
-import java.util.HashMap;
-
 public class HttpHelper {
 
     public enum TaskType {

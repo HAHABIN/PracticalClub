@@ -1,16 +1,6 @@
 package com.example.common.base.mvp;
 
 
-
-import com.example.common.bean.HttpItem;
-import com.example.common.http.ApiError;
-import com.example.common.http.HttpHelper;
-import com.example.common.http.TaskListener;
-import com.example.common.utils.ToastUtils;
-
-import org.json.JSONObject;
-
-
 /**
  * Create by HABIN on 2019/11/4
  * Time：23:59

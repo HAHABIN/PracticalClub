@@ -1,6 +1,5 @@
 package com.luck.main.activity;
 
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 

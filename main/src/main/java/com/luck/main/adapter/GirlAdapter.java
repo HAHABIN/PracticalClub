@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.common.R2;
 import com.example.common.base.WebActivity;
 import com.example.common.base.adapter.CommonAdapter;

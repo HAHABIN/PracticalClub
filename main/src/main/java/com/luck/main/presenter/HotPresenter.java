@@ -1,9 +1,6 @@
 package com.luck.main.presenter;
 
 import com.example.common.base.mvp.RxPresenter;
-import com.example.common.bean.beanEnum.CategoryEnum;
-import com.example.common.bean.beanEnum.HotEnum;
-import com.example.common.bean.beanEnum.TypeEnum;
 import com.example.common.bean.entity.BannerEntity;
 import com.example.common.bean.entity.CategoryEntity;
 import com.example.common.bean.entity.HotEntity;
@@ -12,7 +9,6 @@ import com.example.common.bean.request.HotRequest;
 import com.example.common.http.HttpClient;
 import com.example.common.http.HttpHelper;
 import com.luck.main.contract.HotContract;
-import com.luck.main.contract.HotContract.Presenter;
 
 /**
  * <一句话功能简述> <功能详细描述>

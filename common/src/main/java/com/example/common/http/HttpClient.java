@@ -8,7 +8,6 @@ import com.example.common.bean.request.BaseRequest;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -16,8 +15,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Create by HABIN on 2019/11/5

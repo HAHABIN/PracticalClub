@@ -1,23 +1,11 @@
-/**
- * 文 件 名:  BannerEntity
- * 版    权:  QuanTeng Tech. Copyright YYYY-YYYY,  All rights reserved
- * 描    述:  <描述>
- * 修 改 人:  HABIN
- * 修改时间:  2020/8/27
- * 跟踪单号:  <跟踪单号>
- * 修改单号:  <修改单号>
- * 修改内容:  <修改内容>
- */
 package com.example.common.bean.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.example.common.bean.HttpItem;
-import com.example.common.http.HttpClient;
 import com.stx.xhb.xbanner.entity.SimpleBannerInfo;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**

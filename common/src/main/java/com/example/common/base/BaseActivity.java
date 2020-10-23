@@ -3,22 +3,20 @@ package com.example.common.base;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.common.R;
+import com.example.common.dialog.PictureDialog;
 import com.example.common.utils.DoubleUtils;
 import com.example.common.utils.StatusBarUtil;
 import com.example.common.utils.Utils;
-import com.example.common.dialog.PictureDialog;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
